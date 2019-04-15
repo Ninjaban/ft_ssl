@@ -22,9 +22,9 @@ extern t_bool		ft_ssl(int ac, char **av)
 		return (FALSE);
 	}
 
-	if (!ft_md5_padding(av[2]))
+	if (!ft_md5_main(av[2]))
 	{
-		FT_WARNING("ft_md5_padding() failed {%.*s}", (int)ft_strlen(av[2]), av[2]);
+		FT_WARNING("ft_md5_main() failed {%.*s}", (int)ft_strlen(av[2]), av[2]);
 		return (FALSE);
 	}
 	return (TRUE);

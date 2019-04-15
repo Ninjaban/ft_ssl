@@ -47,7 +47,7 @@ static void			ft_md5_padding_set_size(t_pchar **block, size_t size)
 	}
 }
 
-extern t_bool		ft_md5_padding(t_pchar string)
+extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string)
 {
 	t_pchar		*block;
 	size_t		size;
@@ -85,6 +85,13 @@ extern t_bool		ft_md5_padding(t_pchar string)
 		FT_DEBUG("block {%.*s} n %u", 64, block[n], n);
 		n = n + 1;
 	}
+
+	if (!ft_md5_loop(md5, block, (t_uint)size))
+	{
+		FT_WARNING("ft_md5_loop() failed %s", "");
+		return (FALSE);
+	}
+
 
 	return (TRUE);
 }

@@ -27,7 +27,7 @@ static void			ft_md5_init_set_k(t_md5 *md5)
 	n = 0;
 	while (n < 64)
 	{
-		(*md5).k[n] = floor(fabs(sin(n + 1)) * pow(2, 32));
+		(*md5).k[n] = (int32_t)floor(fabs(sin(n + 1)) * pow(2, 32));
 		n = n + 1;
 	}
 }
@@ -53,5 +53,6 @@ extern t_bool		ft_md5_init(t_md5 *md5)
 	(*md5).h1 = 0xEFCDAB89;
 	(*md5).h2 = 0x98BADCFE;
 	(*md5).h3 = 0x10325476;
+
 	return (TRUE);
 }

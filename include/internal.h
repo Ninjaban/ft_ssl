@@ -14,10 +14,18 @@
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
+typedef struct		s_md5_var
+{
+	int32_t			a;
+	int32_t			b;
+	int32_t			c;
+	int32_t			d;
+}					t_md5_var;
+
 typedef struct		s_md5
 {
 	int32_t			r[64];
-	double			k[64];
+	int32_t			k[64];
 
 	int32_t			h0;
 	int32_t			h1;
@@ -31,7 +39,9 @@ extern void			ft_ssl_usage(void);
 extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_error_command(t_pchar cmd);
 
+extern t_bool		ft_md5_main(t_pchar string);
 extern t_bool		ft_md5_init(t_md5 *md5);
-extern t_bool		ft_md5_padding(t_pchar string);
+extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string);
+extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar *block, t_uint size);
 
 #endif
