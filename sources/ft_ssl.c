@@ -9,7 +9,7 @@
 
 extern t_bool		ft_ssl(int ac, char **av)
 {
-	if (ac != 3)
+	if (ac <= 2)
 	{
 		FT_ERROR("ac == %d", ac);
 		ft_ssl_usage();
