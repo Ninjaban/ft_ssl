@@ -56,6 +56,7 @@ int					ft_atoi(char *str);
 int					ft_strlchr(const char *s, const char *c);
 int					ft_ishex(int c);
 int					ft_isoct(int c);
+int					ft_nbrlen(size_t nbr);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strdup(char *src);

@@ -51,6 +51,7 @@ SRC_BASE	=	ft_strcmp.c \
 			ft_memdel.c \
 			ft_memcpy.c \
 			ft_memmove.c \
+			ft_nbrlen.c \
 			ft_strclr.c \
 			ft_strdel.c \
 			ft_strequ.c \

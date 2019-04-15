@@ -2,10 +2,11 @@
 // Created by Jonathan CARRA on 2019-04-15.
 //
 
+#include <math.h>
+
 #include "types.h"
 #include "error.h"
 #include "internal.h"
-#include <math.h>
 
 static void			ft_md5_init_set_r(t_md5 *md5, t_uint n, const int32_t tab[4])
 {
@@ -24,7 +25,7 @@ static void			ft_md5_init_set_k(t_md5 *md5)
 	t_uint		n;
 
 	n = 0;
-	while (n <= 63)
+	while (n < 64)
 	{
 		(*md5).k[n] = floor(fabs(sin(n + 1)) * pow(2, 32));
 		n = n + 1;
