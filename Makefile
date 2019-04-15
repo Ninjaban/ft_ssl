@@ -17,7 +17,8 @@ LIB			=	libft.a
 
 SRC_BASE	=	main.c \
                 ft_ssl.c \
-                ft_ssl_usage.c
+                ft_ssl_usage.c \
+                ft_md5_init.c
 
 DIRSRC		=	sources/
 DIRINC		=	include/
