@@ -15,7 +15,9 @@ NAME_BASE	=	ft_ssl
 
 LIB			=	libft.a
 
-SRC_BASE	=	main.c
+SRC_BASE	=	main.c \
+                ft_ssl.c \
+                ft_ssl_usage.c
 
 DIRSRC		=	sources/
 DIRINC		=	include/
