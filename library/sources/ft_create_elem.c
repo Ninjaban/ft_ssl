@@ -18,7 +18,7 @@ t_lst		*ft_create_elem(void *data)
 {
 	t_lst	*new_elem;
 
-	if ((new_elem = ft_malloc(sizeof(t_lst))) == NULL)
+	if ((new_elem = malloc(sizeof(t_lst))) == NULL)
 		return (NULL);
 	new_elem->next = NULL;
 	new_elem->data = data;

@@ -21,11 +21,11 @@ char		*ft_revstr(char *str)
 
 	n = 0;
 	i = ft_strlen(str) - 1;
-	if ((rev = ft_malloc(ft_strlen(str) + 1)) == NULL)
+	if ((rev = malloc(ft_strlen(str) + 1)) == NULL)
 		return (NULL);
 	while (i >= 0)
 		rev[n++] = str[i--];
 	rev[n] = '\0';
-	ft_free(str);
+	free(str);
 	return (rev);
 }

@@ -19,7 +19,7 @@ t_btree		*btree_create_node(void *item)
 
 	if (!item)
 		return (NULL);
-	if ((new = ft_malloc(sizeof(t_btree))) == NULL)
+	if ((new = malloc(sizeof(t_btree))) == NULL)
 		return (NULL);
 	new->item = item;
 	new->left = NULL;

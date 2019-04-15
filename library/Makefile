@@ -94,14 +94,6 @@ SRC_BASE	=	ft_strcmp.c \
 			ft_list_foreach.c \
 			ft_list_del.c \
 			ft_list_sort.c \
-	        ft_tools_realloc.c \
-	        ft_tools_malloc.c \
-            mem.c \
-            malloc.c \
-    	    calloc.c \
-			realloc.c \
-			reallocf.c \
-            free.c \
             get_next_line.c
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)

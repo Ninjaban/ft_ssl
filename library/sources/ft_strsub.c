@@ -21,7 +21,7 @@ char		*ft_strsub(char const *s, unsigned int start, size_t len)
 	n = 0;
 	if (s == NULL)
 		return (NULL);
-	if ((str = ft_malloc(len + 1)) == NULL)
+	if ((str = malloc(len + 1)) == NULL)
 		return (NULL);
 	while (n < len)
 	{

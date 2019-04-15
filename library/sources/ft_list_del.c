@@ -18,5 +18,5 @@ void		ft_list_del(t_lst *node, void (*f)(void *))
 	if (!node || !f)
 		return ;
 	f(node->data);
-	ft_free(node);
+	free(node);
 }

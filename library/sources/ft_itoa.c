@@ -52,7 +52,7 @@ char		*ft_itoa(int n)
 {
 	char	*str;
 
-	if ((str = ft_malloc(count_size(n) + 1)) == NULL)
+	if ((str = malloc(count_size(n) + 1)) == NULL)
 		return (NULL);
 	str = (n < 0) ? complete_str(str, n, 1) : complete_str(str, n, 0);
 	if ((str = ft_revstr(str)) == NULL)

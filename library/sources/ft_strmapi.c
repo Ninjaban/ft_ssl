@@ -21,7 +21,7 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	n = -1;
 	if (s == NULL)
 		return (NULL);
-	if ((str = ft_malloc(ft_strlen((char *)s) + 1)) == NULL)
+	if ((str = malloc(ft_strlen((char *)s) + 1)) == NULL)
 		return (NULL);
 	while (s[++n])
 		str[n] = f(n, s[n]);

@@ -31,7 +31,7 @@ char		*ft_strtrim(char const *s)
 		end = end - 1;
 	if (end < start)
 		return (NULL);
-	else if ((str = ft_malloc(end - start + 2)) == NULL)
+	else if ((str = malloc(end - start + 2)) == NULL)
 		return (NULL);
 	while (start <= end)
 		str[n++] = s[start++];
