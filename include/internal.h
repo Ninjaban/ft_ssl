@@ -16,8 +16,8 @@
 
 extern t_bool		ft_ssl(int ac, char **av);
 
-extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_usage(void);
+extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_error_command(t_pchar cmd);
 
 #endif

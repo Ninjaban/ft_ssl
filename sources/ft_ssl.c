@@ -15,7 +15,7 @@ extern t_bool		ft_ssl(int ac, char **av)
 		ft_ssl_usage();
 		return (FALSE);
 	}
-	if (!ft_strcmp(av[1], "md5") || !ft_strcmp(av[1], "sha256"))
+	if (ft_strcmp(av[1], "md5") && ft_strcmp(av[1], "sha256"))
 	{
 		FT_ERROR("Command Opts: %s", av[1]);
 		ft_ssl_error_command(av[1]);
