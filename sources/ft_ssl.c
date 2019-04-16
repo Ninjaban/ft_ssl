@@ -29,6 +29,11 @@ extern t_bool		ft_ssl(int ac, char **av)
 		FT_WARNING("ft_md5_main() failed {%.*s}", (int)ft_strlen(av[2]), av[2]);
 		return (FALSE);
 	}
+	if (!ft_strcmp(av[1], "sha256") && !ft_sha256_main(av[2], &hash))
+	{
+		FT_WARNING("ft_sha256_main() failed {%.*s}", (int)ft_strlen(av[2]), av[2]);
+		return (FALSE);
+	}
 
 	FT_DEBUG("%.*s", 32 + 1, hash);
 	return (TRUE);

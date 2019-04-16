@@ -15,6 +15,7 @@
 # define INTERNAL_H
 
 # include "internal/md5.h"
+# include "internal/sha256.h"
 
 extern t_bool		ft_ssl(int ac, char **av);
 

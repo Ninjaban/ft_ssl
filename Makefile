@@ -21,7 +21,8 @@ SRC_BASE	=	main.c \
                 ft_md5_main.c \
                 ft_md5_init.c \
                 ft_md5_padding.c \
-                ft_md5_loop.c
+                ft_md5_loop.c \
+				ft_sha256_main.c
 
 DIRSRC		=	sources/
 DIRINC		=	include/
