@@ -9,41 +9,42 @@
 #include "error.h"
 #include "internal.h"
 
-static int32_t		leftRotate(int n, int d)
+static void			ft_md5_loop_main_i(t_md5_var *var, uint32_t *f, uint32_t *g, t_uint i)
 {
-	return ((n << d)|(n >> (32 - d)));
+	if (i < 16)
+	{
+		*f = ((*var).b & (*var).c) | ((~(*var).b) & (*var).d);
+		*g = i;
+	}
+	else if (i < 32)
+	{
+		*f = ((*var).d & (*var).b) | ((~(*var).d) & (*var).c);
+		*g = (5 * i + 1) % 16;
+	}
+	else if (i < 48)
+	{
+		*f = (*var).b ^ (*var).c ^ (*var).d;
+		*g = (3 * i + 5) % 16;
+	}
+	else
+	{
+		*f = (*var).c ^ ((*var).b | (~(*var).d));
+		*g = (7 * i) % 16;
+	}
 }
 
 static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
 {
-	int32_t		f;
-	int32_t		g;
-	int32_t		tmp;
+	uint32_t	f;
+	uint32_t	g;
+	uint32_t	tmp;
 	t_uint		i;
 
 	i = 0;
 	while (i < 64)
 	{
-		if (i < 16)
-		{
-			f = ((*var).b&(*var).c)|((~(*var).b)&(*var).d);
-			g = i;
-		}
-		else if (i < 32)
-		{
-			f = ((*var).d&(*var).b)|((~(*var).d)&(*var).c);
-			g = (5 * i + 1) % 16;
-		}
-		else if (i < 48)
-		{
-			f = (*var).b^(*var).c^(*var).d;
-			g = (3 * i + 5) % 16;
-		}
-		else
-		{
-			f = (*var).c^((*var).b|(~(*var).d));
-			g = (7 * i) % 16;
-		}
+		ft_md5_loop_main_i(var, &f, &g, i);
+
 		tmp = (*var).d;
 		(*var).d = (*var).c;
 		(*var).c = (*var).b;
@@ -70,7 +71,6 @@ extern t_bool		ft_md5_loop(t_md5 *md5, t_puchar block, size_t size)
 		var.c = (*md5).h2;
 		var.d = (*md5).h3;
 
-		// LOOP
 		ft_md5_loop_main(*md5, w, &var);
 
 		(*md5).h0 += var.a;

@@ -14,6 +14,8 @@
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
+#define leftRotate(x, c)		(((x) << (c)) | ((x) >> (32 - (c))))
+
 typedef struct		s_md5_var
 {
 	int32_t			a;

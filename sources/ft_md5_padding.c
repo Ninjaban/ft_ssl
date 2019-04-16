@@ -32,20 +32,22 @@ extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string)
 		FT_ERROR("malloc() failed block_size %zu", block_size);
 		return (FALSE);
 	}
+	ft_memset(block, 0, block_size + 64);
 
 	ft_memcpy(block, string, string_len);
 	block[string_len] = 128;
 	string_len_bit = string_len * 8;
 	ft_memcpy(block+block_size, &string_len_bit, 4);
-	for (t_uint i = 0 ; i < (56*block_size)+8 ; ++ i)
-		FT_DEBUG("%d\t%c", block[i], block[i]);
+//	for (t_uint i = 0 ; i < (56*block_size)+8 ; ++ i)
+//		FT_DEBUG("%d\t%c", block[i], block[i]);
 
 	if (!ft_md5_loop(md5, block, block_size))
 	{
 		FT_WARNING("ft_md5_loop() failed %s", "");
+		free(block);
 		return (FALSE);
 	}
 
-
+	free(block);
 	return (TRUE);
 }
