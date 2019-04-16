@@ -35,6 +35,6 @@ extern t_bool		ft_ssl(int ac, char **av)
 		return (FALSE);
 	}
 
-	FT_DEBUG("%.*s", 32 + 1, hash);
+	FT_DEBUG("%.*s", 32, hash);
 	return (TRUE);
 }
