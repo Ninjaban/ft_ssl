@@ -42,6 +42,6 @@ extern void			ft_ssl_error_command(t_pchar cmd);
 extern t_bool		ft_md5_main(t_pchar string);
 extern t_bool		ft_md5_init(t_md5 *md5);
 extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string);
-extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar block, size_t size);
+extern t_bool		ft_md5_loop(t_md5 *md5, t_puchar block, size_t size);
 
 #endif

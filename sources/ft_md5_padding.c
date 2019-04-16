@@ -11,10 +11,10 @@
 
 extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string)
 {
-	t_pchar		block;
+	t_puchar	block;
 	size_t		block_size;
 	size_t		string_len;
-	t_uint		add1;
+	size_t		string_len_bit;
 
 	if (!string)
 	{
@@ -35,8 +35,8 @@ extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string)
 
 	ft_memcpy(block, string, string_len);
 	block[string_len] = 128;
-	ft_memcpy(block+string_len, &add1, 1);
-	ft_memcpy(block+56*block_size, &string_len, 8);
+	string_len_bit = string_len * 8;
+	ft_memcpy(block+block_size, &string_len_bit, 4);
 	for (t_uint i = 0 ; i < (56*block_size)+8 ; ++ i)
 		FT_DEBUG("%d\t%c", block[i], block[i]);
 

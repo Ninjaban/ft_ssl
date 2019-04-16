@@ -9,29 +9,6 @@
 #include "error.h"
 #include "internal.h"
 
-static t_bool		ft_md5_loop_init(int **w, t_cpchar string)
-{
-	t_uint		n;
-	int			tmp;
-
-	if ((*w = malloc(sizeof(int) * 16)) == NULL)
-	{
-		FT_ERROR("malloc() failed size %zu", sizeof(int) * 16);
-		return (FALSE);
-	}
-	ft_memset(*w, 0, sizeof(int) * 16);
-
-	n = 0;
-	while (n < 64)
-	{
-		tmp = string[n] << ((3 - n % 4) * 8);
-		(*w)[n / 4] = (*w)[n / 4]|tmp;
-		n = n + 1;
-	}
-
-	return (TRUE);
-}
-
 static int32_t		leftRotate(int n, int d)
 {
 	return ((n << d)|(n >> (32 - d)));
@@ -77,33 +54,32 @@ static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
 	}
 }
 
-extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar block, size_t size)
+extern t_bool		ft_md5_loop(t_md5 *md5, t_puchar block, size_t size)
 {
+	size_t		offset;
 	int			*w;
 	t_md5_var	var;
 
-	if (size == 0)
-		return (TRUE);
-
-	if (!ft_md5_loop_init(&w, block))
+	offset = 0;
+	while (offset < size)
 	{
-		FT_WARNING("ft_md5_loop_init() failed %s", "");
-		return (FALSE);
+		w = (int *)(block + offset);
+
+		var.a = (*md5).h0;
+		var.b = (*md5).h1;
+		var.c = (*md5).h2;
+		var.d = (*md5).h3;
+
+		// LOOP
+		ft_md5_loop_main(*md5, w, &var);
+
+		(*md5).h0 += var.a;
+		(*md5).h1 += var.b;
+		(*md5).h2 += var.c;
+		(*md5).h3 += var.d;
+
+		offset = offset + 64;
 	}
 
-	var.a = (*md5).h0;
-	var.b = (*md5).h1;
-	var.c = (*md5).h2;
-	var.d = (*md5).h3;
-
-	// LOOP
-	ft_md5_loop_main(*md5, w, &var);
-
-	(*md5).h0 += var.a;
-	(*md5).h1 += var.b;
-	(*md5).h2 += var.c;
-	(*md5).h3 += var.d;
-
-	ft_md5_loop(md5, block + size*64, size - 1);
 	return (TRUE);
 }
