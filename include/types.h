@@ -22,6 +22,7 @@
 typedef char				t_bool;
 typedef void *				t_pvoid;
 typedef char *				t_pchar;
+typedef const char *		t_cpchar;
 typedef unsigned char *		t_puchar;
 typedef unsigned int		t_uint;
 typedef long long			t_long;

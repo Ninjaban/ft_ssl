@@ -9,7 +9,7 @@
 #include "error.h"
 #include "internal.h"
 
-static t_bool		ft_md5_loop_init(int **w, t_pchar string)
+static t_bool		ft_md5_loop_init(int **w, t_cpchar string)
 {
 	t_uint		n;
 	int			tmp;
@@ -32,11 +32,9 @@ static t_bool		ft_md5_loop_init(int **w, t_pchar string)
 	return (TRUE);
 }
 
-static int32_t		leftRotate(int n, unsigned int d)
+static int32_t		leftRotate(int n, int d)
 {
-	/* In n<<d, last d bits are 0. To put first 3 bits of n at
-	  last, do bitwise or of n<<d with n >>(INT_BITS - d) */
-	return (n << d)|(n >> (32 - d));
+	return ((n << d)|(n >> (32 - d)));
 }
 
 static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
@@ -72,14 +70,14 @@ static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
 		tmp = (*var).d;
 		(*var).d = (*var).c;
 		(*var).c = (*var).b;
-		(*var).b = (((*var).a + f + md5.k[i] + w[g]) * leftRotate(md5.r[i], 25)) + (*var).b;
+		(*var).b = (leftRotate(((*var).a + f + md5.k[i] + w[g]), md5.r[i])) + (*var).b;
 		(*var).a = tmp;
 
 		i = i + 1;
 	}
 }
 
-extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar *block, t_uint size)
+extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar block, size_t size)
 {
 	int			*w;
 	t_md5_var	var;
@@ -87,7 +85,7 @@ extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar *block, t_uint size)
 	if (size == 0)
 		return (TRUE);
 
-	if (!ft_md5_loop_init(&w, *block))
+	if (!ft_md5_loop_init(&w, block))
 	{
 		FT_WARNING("ft_md5_loop_init() failed %s", "");
 		return (FALSE);
@@ -106,6 +104,6 @@ extern t_bool		ft_md5_loop(t_md5 *md5, t_pchar *block, t_uint size)
 	(*md5).h2 += var.c;
 	(*md5).h3 += var.d;
 
-	ft_md5_loop(md5, block + 1, size - 1);
+	ft_md5_loop(md5, block + size*64, size - 1);
 	return (TRUE);
 }
