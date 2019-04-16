@@ -11,15 +11,33 @@
 |    Copyright (c) 2019 Prévision. All rights reserved.
 +---------------------------------------------------------------------------- */
 
-#ifndef INTERNAL_H
-# define INTERNAL_H
+#ifndef MD5_H
+# define MD5_H
 
-# include "internal/md5.h"
+#define leftRotate(x, c)		(((x) << (c)) | ((x) >> (32 - (c))))
 
-extern t_bool		ft_ssl(int ac, char **av);
+typedef struct		s_md5_var
+{
+	int32_t			a;
+	int32_t			b;
+	int32_t			c;
+	int32_t			d;
+}					t_md5_var;
 
-extern void			ft_ssl_usage(void);
-extern void			ft_ssl_usage_command(void);
-extern void			ft_ssl_error_command(t_pchar cmd);
+typedef struct		s_md5
+{
+	int32_t			r[64];
+	int32_t			k[64];
+
+	int32_t			h0;
+	int32_t			h1;
+	int32_t			h2;
+	int32_t			h3;
+}					t_md5;
+
+extern t_bool		ft_md5_main(t_pchar string, t_pchar *out);
+extern t_bool		ft_md5_init(t_md5 *md5);
+extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string);
+extern t_bool		ft_md5_loop(t_md5 *md5, t_puchar block, size_t size);
 
 #endif

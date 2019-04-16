@@ -32,8 +32,8 @@ LIBS		=	$(LIB:%=$(DIRLIB)%)
 
 OBJS_BASE	=	$(addprefix $(DIROBJ), $(SRC_BASE:.c=.o))
 
-CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
-LFLAGS		=	-lncursesw
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC)
+LFLAGS		=
 
 CC			=	gcc
 RM			=	rm -rf
