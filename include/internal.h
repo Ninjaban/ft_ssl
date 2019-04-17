@@ -17,10 +17,31 @@
 # include "internal/md5.h"
 # include "internal/sha256.h"
 
+typedef struct		s_args
+{
+	t_pchar			p;
+	t_pchar			s;
+
+	t_pchar			*f;
+}					t_args;
+
+typedef struct		s_settings
+{
+	t_bool			p;
+	t_bool			q;
+	t_bool			r;
+	t_bool			s;
+
+	t_args			args;
+}					t_settings;
+
 extern t_bool		ft_ssl(int ac, char **av);
 
 extern void			ft_ssl_usage(void);
 extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_error_command(t_pchar cmd);
+
+extern t_bool		ft_map_file(const char *path, t_buffer *file);
+extern t_bool		ft_unmap_file(t_buffer *file);
 
 #endif

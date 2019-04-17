@@ -16,6 +16,7 @@ NAME_BASE	=	ft_ssl
 LIB			=	libft.a
 
 SRC_BASE	=	main.c \
+				ft_map.c \
                 ft_ssl.c \
                 ft_ssl_usage.c \
                 ft_md5_main.c \
@@ -33,7 +34,7 @@ LIBS		=	$(LIB:%=$(DIRLIB)%)
 
 OBJS_BASE	=	$(addprefix $(DIROBJ), $(SRC_BASE:.c=.o))
 
-CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC)
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
 LFLAGS		=
 
 CC			=	gcc
