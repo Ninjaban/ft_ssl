@@ -175,10 +175,14 @@ static t_bool		ft_ssl_settings(int ac, char **av, t_settings *settings)
 		return (FALSE);
 	}
 
-	if ((*settings).p == TRUE && !ft_ssl_settings_stdin(settings))
+	if (((*settings).p == TRUE || (!(*settings).s && !(*settings).args.f)))
 	{
-		FT_WARNING("ft_ssl_settings_stdin() failed %s", "");
-		return (FALSE);
+		(*settings).p = TRUE;
+		if (!ft_ssl_settings_stdin(settings))
+		{
+			FT_WARNING("ft_ssl_settings_stdin() failed %s", "");
+			return (FALSE);
+		}
 	}
 
 	return (TRUE);
