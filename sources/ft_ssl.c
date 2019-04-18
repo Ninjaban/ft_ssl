@@ -8,7 +8,16 @@
 #include "error.h"
 #include "internal.h"
 
-static t_bool		ft_ssl_launch_file(t_settings settings, t_file *file)
+static void			ft_ssl_launch_file_error(t_pchar file_name, t_pchar type)
+{
+	ft_putstr("ft_ssl: ");
+	ft_putstr(type);
+	ft_putstr(": ");
+	ft_putstr(file_name);
+	ft_putstr(": No such file or directory\n");
+}
+
+static t_bool		ft_ssl_launch_file(t_settings settings, t_file *file, t_pchar type)
 {
 	static int		n = 0;
 
@@ -19,6 +28,9 @@ static t_bool		ft_ssl_launch_file(t_settings settings, t_file *file)
 	if (!ft_map_file(settings.args.f[n], &((*file).content)))
 	{
 		FT_WARNING("ft_map_file() failed file %s", settings.args.f[n]);
+		ft_ssl_launch_file_error(settings.args.f[n], type);
+		n = n + 1;
+		return (TRUE);
 	}
 	(*file).name = settings.args.f[n];
 	n = n + 1;
@@ -86,7 +98,7 @@ static t_bool		ft_ssl_launch(t_pchar type, t_settings settings)
 		ft_ssl_launch_hash(type, settings.args.s, NULL, settings);
 
 	BUFFER_CLEAR(file.content);
-	while (settings.args.f && ft_ssl_launch_file(settings, &file))
+	while (settings.args.f && ft_ssl_launch_file(settings, &file, type))
 	{
 		if (file.name)
 		{
