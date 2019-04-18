@@ -17,6 +17,12 @@
 # include "internal/md5.h"
 # include "internal/sha256.h"
 
+typedef struct		s_file
+{
+	t_pchar			name;
+	t_buffer		content;
+}					t_file;
+
 typedef struct		s_args
 {
 	t_pchar			p;

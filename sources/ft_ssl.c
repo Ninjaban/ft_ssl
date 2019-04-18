@@ -8,23 +8,49 @@
 #include "error.h"
 #include "internal.h"
 
-static t_bool		ft_ssl_launch_file(t_settings settings, t_buffer *file)
+static t_bool		ft_ssl_launch_file(t_settings settings, t_file *file)
 {
 	static int		n = 0;
 
 	if (!settings.args.f[n])
 		return (FALSE);
 
-	if (!ft_map_file(settings.args.f[n], file))
+	(*file).name = NULL;
+	if (!ft_map_file(settings.args.f[n], &((*file).content)))
 	{
 		FT_WARNING("ft_map_file() failed file %s", settings.args.f[n]);
 	}
+	(*file).name = settings.args.f[n];
 	n = n + 1;
 
 	return (TRUE);
 }
 
-static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text)
+static void			ft_ssl_print(t_pchar hash, t_pchar text, t_pchar file_name, t_settings settings)
+{
+	if (settings.q == FALSE)
+	{
+		if (file_name)
+		{
+			ft_putstr("MD5 (");
+			ft_putstr(file_name);
+			ft_putstr(") = ");
+		}
+		else if (settings.p == TRUE && !ft_strcmp(text, settings.args.p))
+		{
+			ft_putendl(text);
+		}
+		else if (!ft_strcmp(text, settings.args.s))
+		{
+			ft_putstr("MD5 ('");
+			ft_putstr(text);
+			ft_putstr("') = ");
+		}
+	}
+	ft_putendl(hash);
+}
+
+static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text, t_pchar file_name, t_settings settings)
 {
 	t_pchar		hash;
 
@@ -41,31 +67,32 @@ static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text)
 		return (FALSE);
 	}
 
-	FT_DEBUG("%.*s", 32, hash);			//DEBUG
+	ft_ssl_print(hash, text, file_name, settings);
+//	FT_DEBUG("%.*s", 32, hash);			//DEBUG
 
 	return (TRUE);
 }
 
 static t_bool		ft_ssl_launch(t_pchar type, t_settings settings)
 {
-	t_buffer		file;
+	t_file			file;
 
-	if (settings.p)
+	if (settings.args.p)
 	{
-		ft_ssl_launch_hash(type, settings.args.p);
+		ft_ssl_launch_hash(type, settings.args.p, NULL, settings);
 		free(settings.args.p);
 	}
 	if (settings.s)
-		ft_ssl_launch_hash(type, settings.args.s);
+		ft_ssl_launch_hash(type, settings.args.s, NULL, settings);
 
-	BUFFER_CLEAR(file);
+	BUFFER_CLEAR(file.content);
 	while (settings.args.f && ft_ssl_launch_file(settings, &file))
 	{
-		if (file.bytes)
+		if (file.name)
 		{
-			ft_ssl_launch_hash(type, file.bytes);
+			ft_ssl_launch_hash(type, file.content.bytes, file.name, settings);
 
-			if (!ft_unmap_file(&file))
+			if (!ft_unmap_file(&file.content))
 			{
 				FT_WARNING("ft_unmap_file() failed %s", "");
 				return (FALSE);
@@ -177,7 +204,6 @@ static t_bool		ft_ssl_settings(int ac, char **av, t_settings *settings)
 
 	if (((*settings).p == TRUE || (!(*settings).s && !(*settings).args.f)))
 	{
-		(*settings).p = TRUE;
 		if (!ft_ssl_settings_stdin(settings))
 		{
 			FT_WARNING("ft_ssl_settings_stdin() failed %s", "");
