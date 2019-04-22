@@ -47,6 +47,12 @@ extern void			ft_ssl_usage(void);
 extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_error_command(t_pchar cmd);
 
+extern t_bool		ft_ssl_settings(int ac, char **av, t_settings *settings);
+
+extern t_bool		ft_ssl_launch(t_pchar type, t_settings settings);
+
+extern void			ft_ssl_print(t_pchar hash, t_pchar text, t_pchar name, t_settings settings);
+
 extern t_bool		ft_map_file(const char *path, t_buffer *file);
 extern t_bool		ft_unmap_file(t_buffer *file);
 
