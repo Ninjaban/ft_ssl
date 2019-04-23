@@ -16,18 +16,19 @@ NAME_BASE	=	ft_ssl
 LIB			=	libft.a
 
 SRC_BASE	=	main.c \
-				ft_map.c \
                 ft_ssl.c \
-                ft_ssl_settings.c \
-                ft_ssl_launch.c \
-                ft_ssl_print.c \
                 ft_ssl_usage.c \
-                ft_md5_main.c \
+				ft_ssl_print.c \
+				ft_ssl_settings.c \
+				ft_ssl_launch.c \
+				ft_map.c \
+				ft_md5_main.c \
                 ft_md5_init.c \
                 ft_md5_padding.c \
                 ft_md5_loop.c \
-				ft_sha256_main.c
-
+				ft_sha256_main.c \
+				ft_sha256_init.c
+				
 DIRSRC		=	sources/
 DIRINC		=	include/
 DIRLIB		=	library/
@@ -37,7 +38,7 @@ LIBS		=	$(LIB:%=$(DIRLIB)%)
 
 OBJS_BASE	=	$(addprefix $(DIROBJ), $(SRC_BASE:.c=.o))
 
-CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC)
 LFLAGS		=
 
 CC			=	gcc
