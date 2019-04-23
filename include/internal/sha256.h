@@ -19,6 +19,7 @@ typedef struct		s_sha256_var
 
 typedef struct		s_sha256
 {
+    int32_t         k[64];
 	int32_t			t1[32];
 	int32_t			t2[32];
 	int32_t			h0;
@@ -30,5 +31,8 @@ typedef struct		s_sha256
     int32_t         h6;
     int32_t         h7;
 }					t_sha256;
+
+extern t_bool		ft_sha256_main(t_pchar string, t_pchar *out);
+extern t_bool		ft_sha256_init(t_sha256 *sha256);
 
 #endif
