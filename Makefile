@@ -22,15 +22,15 @@ SRC_BASE	=	main.c \
 				ft_ssl_settings.c \
 				ft_ssl_launch.c \
 				ft_map.c \
-				ft_md5_main.c \
-                ft_md5_init.c \
-                ft_md5_padding.c \
-                ft_md5_loop.c \
-                ft_whirlpool.c \
-                ft_whirlpool_init.c \
-                ft_whirlpool_add.c \
-                ft_whirlpool_process.c \
-                ft_whirlpool_finalize.c \
+				md5/ft_md5_main.c \
+                md5/ft_md5_init.c \
+                md5/ft_md5_padding.c \
+                md5/ft_md5_loop.c \
+                whirlpool/ft_whirlpool_main.c \
+                whirlpool/ft_whirlpool_init.c \
+                whirlpool/ft_whirlpool_add.c \
+                whirlpool/ft_whirlpool_process.c \
+                whirlpool/ft_whirlpool_finalize.c \
 				ft_sha256_main.c \
 				ft_sha256_init.c
 				
@@ -89,6 +89,8 @@ $(DIROBJ)%.o	:	$(DIRSRC)%.c | $(DIROBJ)
 $(DIROBJ)		:
 	@$(MAKE) $(DIRLIB)
 	@mkdir -p $(DIROBJ)
+	@$(eval SUBDIR=$(shell echo $(SRC_BASE) | grep -oE "[a-zA-Z0-9_]+/" | sed -E "s@(.*)@$(DIROBJ)\1@g" | uniq))
+	@mkdir -p $(SUBDIR)
 
 clean			:
 	@$(MAKE) $(DIRLIB) clean

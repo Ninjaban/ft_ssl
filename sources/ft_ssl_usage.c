@@ -12,6 +12,7 @@ extern void			ft_ssl_usage_command(void)
 	ft_putendl_fd("Message Digest commands:", 2);
 	ft_putendl_fd("md5", 2);
 	ft_putendl_fd("sha256", 2);
+	ft_putendl_fd("whirlpool", 2);
 	ft_putendl_fd("", 2);
 	ft_putendl_fd("Cipher commands:", 2);
 }
