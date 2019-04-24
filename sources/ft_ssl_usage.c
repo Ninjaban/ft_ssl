@@ -1,6 +1,3 @@
-//
-// Created by Jonathan CARRA on 2019-04-15.
-//
 
 #include "libft.h"
 #include "types.h"

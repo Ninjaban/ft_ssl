@@ -21,7 +21,7 @@ typedef struct		s_whirlpool
 
 extern t_bool       ft_whirlpool_main(t_pchar string, t_pchar *out);
 extern void         ft_whirlpool_init(t_whirlpool *out_whirlpool);
-extern void         ft_whirlpool_add(t_puchar source, uint64_t sourceBits, t_whirlpool *out_whirlpool);
+extern void         ft_whirlpool_add(t_puchar source, uint64_t source_bits, t_whirlpool *out_whirlpool);
 extern void			ft_whirlpool_process(t_whirlpool *out_whirlpool);
 extern void         ft_whirlpool_finalize(t_whirlpool *out_whirlpool, uint8_t *digest);
 
@@ -752,4 +752,3 @@ static const uint64_t rc[R + 1] = {
 };
 
 #endif
-

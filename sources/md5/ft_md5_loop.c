@@ -1,15 +1,13 @@
-//
-// Created by Jonathan CARRA on 2019-04-15.
-//
 
 #include <stdlib.h>
-#include <libft.h>
 
+#include "libft.h"
 #include "types.h"
 #include "error.h"
 #include "internal/md5.h"
 
-static void			ft_md5_loop_main_i(t_md5_var *var, uint32_t *f, uint32_t *g, t_uint i)
+static void			ft_md5_loop_main_i(t_md5_var *var, uint32_t *f,
+										uint32_t *g, t_uint i)
 {
 	if (i < 16)
 	{
@@ -44,13 +42,12 @@ static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
 	while (i < 64)
 	{
 		ft_md5_loop_main_i(var, &f, &g, i);
-
 		tmp = (*var).d;
 		(*var).d = (*var).c;
 		(*var).c = (*var).b;
-		(*var).b = (leftRotate(((*var).a + f + md5.k[i] + w[g]), md5.r[i])) + (*var).b;
+		(*var).b = (leftRotate(((*var).a + f + md5.k[i] + w[g]), md5.r[i])) +
+					(*var).b;
 		(*var).a = tmp;
-
 		i = i + 1;
 	}
 }
@@ -65,21 +62,16 @@ extern t_bool		ft_md5_loop(t_md5 *md5, t_puchar block, size_t size)
 	while (offset < size)
 	{
 		w = (int *)(block + offset);
-
 		var.a = (*md5).h0;
 		var.b = (*md5).h1;
 		var.c = (*md5).h2;
 		var.d = (*md5).h3;
-
 		ft_md5_loop_main(*md5, w, &var);
-
 		(*md5).h0 += var.a;
 		(*md5).h1 += var.b;
 		(*md5).h2 += var.c;
 		(*md5).h3 += var.d;
-
 		offset = offset + 64;
 	}
-
 	return (TRUE);
 }

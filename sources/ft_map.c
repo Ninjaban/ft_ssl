@@ -1,15 +1,3 @@
-/* ----------------------------------------------------------------------------+
-                                                                               |
-    .------..------..------..------..------..------..------..------..------.   |
-    |P.--. ||R.--. ||E.--. ||V.--. ||I.--. ||S.--. ||I.--. ||O.--. ||N.--. |   |
-    | :/\: || :(): || (\/) || :(): || (\/) || :/\: || (\/) || :/\: || :(): |   :
-    | (__) || ()() || :\/: || ()() || :\/: || :\/: || :\/: || :\/: || ()() |
-    | '--'P|| '--'R|| '--'E|| '--'V|| '--'I|| '--'S|| '--'I|| '--'O|| '--'N|
-:   `------'`------'`------'`------'`------'`------'`------'`------'`------'
-|
-|    Created by Jonathan Carra.
-|    Copyright (c) 2019 Prévision. All rights reserved.
-+---------------------------------------------------------------------------- */
 
 #include <unistd.h>
 #include <sys/mman.h>
@@ -45,28 +33,14 @@ extern t_bool		ft_map_file(const char *path, t_buffer *file)
 	size_t			size;
 
 	if (file == NULL)
-	{
-		FT_ERROR("file %p", file);
 		return (FALSE);
-	}
 	if ((fd = open(path, O_RDONLY)) == -1)
-	{
-		FT_ERROR("open() failed path %s", path);
 		return (FALSE);
-	}
 	if (fstat(fd, &buf) == -1)
-	{
-		FT_ERROR("fstat() failed fd %d", fd);
 		return (FALSE);
-	}
 	size = (size_t)buf.st_size;
-	FT_DEBUG("File size %ld", size);
 	if (!(bytes = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)))
-	{
-		FT_ERROR("mmap() failed size %zu fd %d", size, fd);
 		return (FALSE);
-	}
-	FT_DEBUG("file : {%.*s}", (unsigned int)size, (char *)bytes);
 	BUFFER_SETUP(*file, size, bytes);
 	return (TRUE);
 }
@@ -84,22 +58,11 @@ extern t_bool		ft_map_file(const char *path, t_buffer *file)
 extern t_bool		ft_unmap_file(t_buffer *file)
 {
 	if (file == NULL)
-	{
-		FT_ERROR("file %p", file);
 		return (FALSE);
-	}
-
 	if ((*file).bytes == NULL)
-	{
-		FT_ERROR("(*file).bytes %p", (*file).bytes);
 		return (FALSE);
-	}
-
 	if (munmap((*file).bytes, (*file).size) == -1)
-	{
-		FT_ERROR("munmap() failed bytes {%.*s} size %" PRIu32, (*file).size, (t_pchar)(*file).bytes, (*file).size);
 		return (FALSE);
-	}
 	BUFFER_CLEAR(*file);
 	return (TRUE);
 }

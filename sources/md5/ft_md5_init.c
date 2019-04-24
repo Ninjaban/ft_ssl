@@ -1,14 +1,10 @@
-//
-// Created by Jonathan CARRA on 2019-04-15.
-//
-
-#include <math.h>
 
 #include "types.h"
 #include "error.h"
 #include "internal/md5.h"
 
-static void			ft_md5_init_set_r(t_md5 *md5, t_uint n, const int32_t tab[4])
+static void			ft_md5_init_set_r(t_md5 *md5, t_uint n,
+										const int32_t tab[4])
 {
 	t_uint		i;
 
@@ -22,8 +18,8 @@ static void			ft_md5_init_set_r(t_md5 *md5, t_uint n, const int32_t tab[4])
 
 static void			ft_md5_init_set_k(t_md5 *md5)
 {
-	t_uint		n;
-	const uint32_t k[] = {
+	t_uint			n;
+	const uint32_t	k[] = {
 			0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 			0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 			0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
@@ -41,7 +37,6 @@ static void			ft_md5_init_set_k(t_md5 *md5)
 			0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
 			0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
 
-
 	n = 0;
 	while (n < 64)
 	{
@@ -53,16 +48,13 @@ static void			ft_md5_init_set_k(t_md5 *md5)
 extern t_bool		ft_md5_init(t_md5 *md5)
 {
 	const int32_t		t0[4] = {7, 12, 17, 22};
-	const int32_t		t1[4] = {5,  9, 14, 20};
+	const int32_t		t1[4] = {5, 9, 14, 20};
 	const int32_t		t2[4] = {4, 11, 16, 23};
 	const int32_t		t3[4] = {6, 10, 15, 21};
 
 	if (!md5)
-	{
-		FT_ERROR("md5 %p", md5);
 		return (FALSE);
-	}
-	ft_md5_init_set_r(md5,  0, t0);
+	ft_md5_init_set_r(md5, 0, t0);
 	ft_md5_init_set_r(md5, 16, t1);
 	ft_md5_init_set_r(md5, 32, t2);
 	ft_md5_init_set_r(md5, 48, t3);
@@ -71,6 +63,5 @@ extern t_bool		ft_md5_init(t_md5 *md5)
 	(*md5).h1 = 0xEFCDAB89;
 	(*md5).h2 = 0x98BADCFE;
 	(*md5).h3 = 0x10325476;
-
 	return (TRUE);
 }
