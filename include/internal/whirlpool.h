@@ -2,12 +2,6 @@
 #ifndef WHIRLPOOL_H
 # define WHIRLPOOL_H
 
-# include <limits.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <time.h>
-
-
 # define R				10
 # define LL(v)			(v##ULL)
 
@@ -15,8 +9,6 @@
 # define DIGESTBITS		(8*DIGESTBYTES)
 # define WBLOCKBYTES	64
 # define LENGTHBYTES	32
-
-extern void         ft_whirlpool_main(t_pchar string);
 
 typedef struct		s_whirlpool
 {
@@ -27,8 +19,13 @@ typedef struct		s_whirlpool
 	uint64_t			hash[DIGESTBYTES / 8];
 }					t_whirlpool;
 
+extern t_bool       ft_whirlpool_main(t_pchar string, t_pchar *out);
+extern void         ft_whirlpool_init(t_whirlpool *out_whirlpool);
+extern void         ft_whirlpool_add(t_puchar source, uint64_t sourceBits, t_whirlpool *out_whirlpool);
+extern void			ft_whirlpool_process(t_whirlpool *out_whirlpool);
+extern void         ft_whirlpool_finalize(t_whirlpool *out_whirlpool, uint8_t *digest);
 
-const uint64_t	C0[256] = {
+static const uint64_t	C0[256] = {
 		LL(0x18186018c07830d8), LL(0x23238c2305af4626), LL(0xc6c63fc67ef991b8),
 		LL(0xe8e887e8136fcdfb), LL(0x878726874ca113cb), LL(0xb8b8dab8a9626d11),
 		LL(0x0101040108050209), LL(0x4f4f214f426e9e0d), LL(0x3636d836adee6c9b),
@@ -117,7 +114,7 @@ const uint64_t	C0[256] = {
 		LL(0x8686228644a411c2),
 };
 
-const uint64_t C1[256] = {
+static const uint64_t C1[256] = {
 		LL(0xd818186018c07830), LL(0x2623238c2305af46), LL(0xb8c6c63fc67ef991),
 		LL(0xfbe8e887e8136fcd), LL(0xcb878726874ca113), LL(0x11b8b8dab8a9626d),
 		LL(0x0901010401080502), LL(0x0d4f4f214f426e9e), LL(0x9b3636d836adee6c),
@@ -206,7 +203,7 @@ const uint64_t C1[256] = {
 		LL(0xc28686228644a411),
 };
 
-const uint64_t C2[256] = {
+static const uint64_t C2[256] = {
 		LL(0x30d818186018c078), LL(0x462623238c2305af), LL(0x91b8c6c63fc67ef9),
 		LL(0xcdfbe8e887e8136f), LL(0x13cb878726874ca1), LL(0x6d11b8b8dab8a962),
 		LL(0x0209010104010805), LL(0x9e0d4f4f214f426e), LL(0x6c9b3636d836adee),
@@ -295,7 +292,7 @@ const uint64_t C2[256] = {
 		LL(0x11c28686228644a4),
 };
 
-const uint64_t C3[256] = {
+static const uint64_t C3[256] = {
 		LL(0x7830d818186018c0), LL(0xaf462623238c2305), LL(0xf991b8c6c63fc67e),
 		LL(0x6fcdfbe8e887e813), LL(0xa113cb878726874c), LL(0x626d11b8b8dab8a9),
 		LL(0x0502090101040108), LL(0x6e9e0d4f4f214f42), LL(0xee6c9b3636d836ad),
@@ -384,7 +381,7 @@ const uint64_t C3[256] = {
 		LL(0xa411c28686228644),
 };
 
-const uint64_t C4[256] = {
+static const uint64_t C4[256] = {
 		LL(0xc07830d818186018), LL(0x05af462623238c23), LL(0x7ef991b8c6c63fc6),
 		LL(0x136fcdfbe8e887e8), LL(0x4ca113cb87872687), LL(0xa9626d11b8b8dab8),
 		LL(0x0805020901010401), LL(0x426e9e0d4f4f214f), LL(0xadee6c9b3636d836),
@@ -473,7 +470,7 @@ const uint64_t C4[256] = {
 		LL(0x44a411c286862286),
 };
 
-const uint64_t C5[256] = {
+static const uint64_t C5[256] = {
 		LL(0x18c07830d8181860), LL(0x2305af462623238c), LL(0xc67ef991b8c6c63f),
 		LL(0xe8136fcdfbe8e887), LL(0x874ca113cb878726), LL(0xb8a9626d11b8b8da),
 		LL(0x0108050209010104), LL(0x4f426e9e0d4f4f21), LL(0x36adee6c9b3636d8),
@@ -562,7 +559,7 @@ const uint64_t C5[256] = {
 		LL(0x8644a411c2868622),
 };
 
-const uint64_t C6[256] = {
+static const uint64_t C6[256] = {
 		LL(0x6018c07830d81818), LL(0x8c2305af46262323), LL(0x3fc67ef991b8c6c6),
 		LL(0x87e8136fcdfbe8e8), LL(0x26874ca113cb8787), LL(0xdab8a9626d11b8b8),
 		LL(0x0401080502090101), LL(0x214f426e9e0d4f4f), LL(0xd836adee6c9b3636),
@@ -651,7 +648,7 @@ const uint64_t C6[256] = {
 		LL(0x228644a411c28686),
 };
 
-const uint64_t C7[256] = {
+static const uint64_t C7[256] = {
 		LL(0x186018c07830d818), LL(0x238c2305af462623), LL(0xc63fc67ef991b8c6),
 		LL(0xe887e8136fcdfbe8), LL(0x8726874ca113cb87), LL(0xb8dab8a9626d11b8),
 		LL(0x0104010805020901), LL(0x4f214f426e9e0d4f), LL(0x36d836adee6c9b36),
@@ -740,7 +737,7 @@ const uint64_t C7[256] = {
 		LL(0x86228644a411c286),
 };
 
-const uint64_t rc[R + 1] = {
+static const uint64_t rc[R + 1] = {
 		LL(0x0000000000000000),
 		LL(0x1823c6e887b8014f),
 		LL(0x36a6d2f5796f9152),

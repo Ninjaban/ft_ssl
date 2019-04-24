@@ -16,6 +16,7 @@
 
 # include "internal/md5.h"
 # include "internal/sha256.h"
+# include "internal/whirlpool.h"
 
 typedef struct		s_file
 {

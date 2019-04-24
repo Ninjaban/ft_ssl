@@ -26,6 +26,11 @@ SRC_BASE	=	main.c \
                 ft_md5_init.c \
                 ft_md5_padding.c \
                 ft_md5_loop.c \
+                ft_whirlpool.c \
+                ft_whirlpool_init.c \
+                ft_whirlpool_add.c \
+                ft_whirlpool_process.c \
+                ft_whirlpool_finalize.c \
 				ft_sha256_main.c \
 				ft_sha256_init.c
 				

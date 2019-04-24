@@ -63,6 +63,12 @@ static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text, t_pchar name, t_se
 		return (FALSE);
 	}
 
+	if (!ft_strcmp(type, "whirlpool") && !ft_whirlpool_main(text, &hash))
+	{
+		FT_WARNING("ft_whirlpool_main() failed {%.*s}", (int)ft_strlen(text), text);
+		return (FALSE);
+	}
+
 	ft_ssl_print(hash, text, name, settings);
 //	FT_DEBUG("%.*s", 32, hash);			//DEBUG
 
