@@ -6,7 +6,7 @@
 
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/md5.h"
 
 static void			ft_md5_init_set_r(t_md5 *md5, t_uint n, const int32_t tab[4])
 {

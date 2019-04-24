@@ -7,7 +7,7 @@
 #include "libft.h"
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/md5.h"
 
 extern t_bool		ft_md5_padding(t_md5 *md5, t_pchar string)
 {

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/md5.h"
 
 extern t_bool		ft_md5_main(t_pchar string, t_pchar *out)
 {

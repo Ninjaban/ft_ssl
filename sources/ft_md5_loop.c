@@ -7,7 +7,7 @@
 
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/md5.h"
 
 static void			ft_md5_loop_main_i(t_md5_var *var, uint32_t *f, uint32_t *g, t_uint i)
 {
