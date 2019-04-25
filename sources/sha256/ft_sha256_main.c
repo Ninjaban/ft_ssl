@@ -18,6 +18,8 @@ extern t_bool		ft_sha256_main(t_pchar string, t_pchar *out) {
 		FT_WARNING("ft_sha256_init() failed %s", "");
 		return (FALSE);
 	}
-	(void)string;
+
+	if (!ft_sha256_padding(&sha256, (string) ? string : ""))
+		return (FALSE);
     return (TRUE);
 }

@@ -24,6 +24,7 @@ INC_DIR		=	include/
 OBJ_DIR		=	objects/
 
 SRC_BASE	=	ft_strcmp.c \
+			ft_bzero.c \
 			ft_strncmp.c \
 			ft_strcmp_case.c \
 			ft_strchr.c \

@@ -70,6 +70,7 @@ size_t				ft_strlen(const char *str);
 **	Part 2
 */
 
+void				ft_bzero(void *s, size_t n);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
