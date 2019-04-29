@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "types.h"
+#include "error.h"
 #include "internal.h"
 
 static t_bool		ft_ssl_flags_push_back(t_pchar name, t_pvoid function, t_pvoid param, t_lst **flags)
@@ -53,11 +54,11 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command *command, t_lst **flags
 	while (n < ac && *(av[n]) == '-')
 	{
 		i = 0;
-		while (command[i].name != NULL && !ft_strcmp(av[n], command[i].name))
+		while (command[i].name != NULL && ft_strcmp(av[n], command[i].name))
 			i = i + 1;
-		if (command[i].name == NULL)
+		if (command[i].name == NULL || n + (int)command[i].param >= ac)
 			return (FALSE);
-		ft_ssl_flags_push_back(command[i].name, command[i].function, ((command[i].param) ? av[n] + command[i].param : NULL), flags);
+		ft_ssl_flags_push_back(command[i].name, command[i].function, ((command[i].param) ? av[n + command[i].param] : NULL), flags);
 
 		n = n + (command[i].param + 1);
 	}
