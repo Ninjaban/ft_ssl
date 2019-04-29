@@ -4,7 +4,7 @@
 #include "libft.h"
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/sha256.h"
 
 extern t_bool	ft_sha256_padding(t_sha256_var *sha256_var, t_pchar string)
 {

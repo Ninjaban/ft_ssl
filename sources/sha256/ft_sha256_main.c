@@ -1,7 +1,7 @@
 
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/sha256.h"
 #include "libft.h"
 
 extern t_bool		ft_sha256_main(t_pchar string, t_pchar *out) {
