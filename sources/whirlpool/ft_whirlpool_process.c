@@ -81,4 +81,3 @@ extern void			ft_whirlpool_process(t_whirlpool *out_whirlpool)
 		i = i + 1;
 	}
 }
-

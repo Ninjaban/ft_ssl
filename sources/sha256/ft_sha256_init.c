@@ -34,6 +34,14 @@ static void			ft_sha256_init_set_k(t_sha256 *sha256)
 extern t_bool		ft_sha256_init(t_sha256 *sha256)
 {
     ft_sha256_init_set_k(sha256);
+    (*sha256).h0 = 0x6a09e667;
+	(*sha256).h1 = 0xbb67ae85;
+	(*sha256).h2 = 0x3c6ef372;
+	(*sha256).h3 = 0xa54ff53a;
+	(*sha256).h4 = 0x510e527f;
+	(*sha256).h5 = 0x9b05688c;
+	(*sha256).h6 = 0x1f83d9ab;
+    (*sha256).h7 = 0x5be0cd19;
 
     return (TRUE);
 }

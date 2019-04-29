@@ -33,7 +33,8 @@ SRC_BASE	=	main.c \
                 whirlpool/ft_whirlpool_finalize.c \
 				sha256/ft_sha256_main.c \
 				sha256/ft_sha256_init.c \
-				sha256/ft_sha256_padding.c
+				sha256/ft_sha256_padding.c \
+				sha256/ft_sha256_loop.c
 				
 DIRSRC		=	sources/
 DIRINC		=	include/
