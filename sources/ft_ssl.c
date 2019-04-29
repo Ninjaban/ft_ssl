@@ -23,6 +23,7 @@ extern t_bool		ft_ssl(int ac, char **av)
 		return (FALSE);
 	}
 
+	flags = NULL;
 	if (!ft_ssl_flags(ac - 2, av + 2, command, &flags))
 		return (FALSE);
 //	if (!ft_ssl_settings(ac - 2, av + 2, &settings))
