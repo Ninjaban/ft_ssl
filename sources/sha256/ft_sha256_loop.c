@@ -1,8 +1,9 @@
+#include <stdlib.h>
+
 #include "libft.h"
 #include "types.h"
 #include "error.h"
 #include "internal/sha256.h"
-#include <stdlib.h>
 
 static void		ft_sha256_loop_init(t_sha256 *sha256, t_sha256_var *sha256_var, int i)
 {
@@ -14,9 +15,9 @@ static void		ft_sha256_loop_init(t_sha256 *sha256, t_sha256_var *sha256_var, int
 	j = 16;
 	while (j < 64)
 	{
-		(*sha256_var).o0 = rightRotate((*sha256_var).w[j - 15], 7) ^
+		(*sha256_var).e0 = rightRotate((*sha256_var).w[j - 15], 7) ^
 		rightRotate((*sha256_var).w[j - 15], 18) ^ ((*sha256_var).w[j - 15] >> 3);
-		(*sha256_var).o1 = rightRotate((*sha256_var).w[j - 2], 17) ^
+		(*sha256_var).e1 = rightRotate((*sha256_var).w[j - 2], 17) ^
 		rightRotate((*sha256_var).w[j - 2], 19) ^ ((*sha256_var).w[j - 2] >> 10);
 		(*sha256_var).w[j] = (*sha256_var).w[j - 16] + (*sha256_var).e0
         + (*sha256_var).w[j - 7] + (*sha256_var).e1;
@@ -57,7 +58,6 @@ extern t_bool       ft_sha256_loop_main(t_sha256 *sha256, t_sha256_var *sha256_v
 
     i = 0;
     j = 0;
-    printf("%zu\n", (*sha256_var).offset);
 	while (i < (*sha256_var).offset)
 	{
 		ft_sha256_loop_init(sha256, sha256_var, i);

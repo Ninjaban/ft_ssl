@@ -1,6 +1,6 @@
 #include "types.h"
 #include "error.h"
-#include "internal.h"
+#include "internal/sha256.h"
 
 static void			ft_sha256_init_set_k(t_sha256 *sha256)
 {

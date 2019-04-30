@@ -10,40 +10,40 @@ extern t_bool        ft_sha256_main(t_pchar string, t_pchar *out);
 
 typedef struct		s_sha256_var
 {
-	int32_t			a;
-	int32_t			b;
-	int32_t			c;
-	int32_t			d;
-    int32_t         e;
-    int32_t         f;
-    int32_t         g;
-    int32_t         h;
-	int32_t			maj;
-	int32_t			ch;
-	int32_t			e0;
-	int32_t			e1;
-	int32_t			o0;
-	int32_t			o1;
-	int32_t			m[64];
-	int32_t			*msg_32;
-	int32_t			*w;
+	uint32_t		a;
+	uint32_t		b;
+	uint32_t		c;
+	uint32_t		d;
+    uint32_t		e;
+    uint32_t		f;
+    uint32_t		g;
+    uint32_t		h;
+	uint32_t		maj;
+	uint32_t		ch;
+	uint32_t		e0;
+	uint32_t		e1;
+	uint32_t		o0;
+	uint32_t		o1;
+	uint32_t		m[64];
+	uint32_t		*msg_32;
+	uint32_t		*w;
 	size_t			new_len;
 	size_t			offset;
 }					t_sha256_var;
 
 typedef struct		s_sha256
 {
-    int32_t         k[64];
-	int32_t			t1;
-	int32_t			t2;
-	int32_t			h0;
-	int32_t			h1;
-	int32_t			h2;
-	int32_t			h3;
-    int32_t         h4;
-    int32_t         h5;
-    int32_t         h6;
-    int32_t         h7;
+    uint32_t		k[64];
+	uint32_t		t1;
+	uint32_t		t2;
+	uint32_t		h0;
+	uint32_t		h1;
+	uint32_t		h2;
+	uint32_t		h3;
+    uint32_t		h4;
+    uint32_t		h5;
+    uint32_t		h6;
+    uint32_t		h7;
 }					t_sha256;
 
 extern t_bool		ft_sha256_main(t_pchar string, t_pchar *out);
