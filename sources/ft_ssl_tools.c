@@ -1,32 +1,56 @@
 
 #include "libft.h"
+#include "get_next_line.h"
 #include "types.h"
 #include "internal.h"
 
-extern t_bool		ft_ssl_tools_check_flag_name(t_lst *flags, t_pchar name)
+extern t_bool		ft_ssl_tools_get_cmd_active(t_command *command, t_pchar name)
 {
-	t_lst		*tmp;
+	t_uint		n;
 
-	tmp = flags;
-	while (tmp && ft_strcmp(((t_flag *)(tmp->data))->name, name))
-		tmp = tmp->next;
-
-	if (tmp && !ft_strcmp(((t_flag *)(tmp->data))->name, name))
-		return (TRUE);
-
-	return (FALSE);
+	n = 0;
+	while (command[n].name != NULL && ft_strcmp(command[n].name, name))
+		n = n + 1;
+	return (command[n].active);
 }
 
-extern t_pvoid		ft_ssl_tools_get_flag_param(t_lst *flags, t_pchar name)
+extern t_pvoid		ft_ssl_tools_get_cmd_param(t_command *command, t_pchar name)
 {
-	t_lst		*tmp;
+	t_uint		n;
 
-	tmp = flags;
-	while (tmp && ft_strcmp(((t_flag *)(tmp->data))->name, name))
-		tmp = tmp->next;
+	n = 0;
+	while (command[n].name != NULL && ft_strcmp(command[n].name, name))
+		n = n + 1;
+	return (command[n].param);
+}
 
-	if (tmp && !ft_strcmp(((t_flag *)(tmp->data))->name, name))
-		return (((t_flag *)(tmp->data))->param);
+extern t_pvoid		ft_ssl_tools_get_cmd_function(t_command *command, t_pchar name)
+{
+	t_uint		n;
 
-	return (NULL);
+	n = 0;
+	while (command[n].name != NULL && ft_strcmp(command[n].name, name))
+		n = n + 1;
+	return (command[n].function);
+}
+
+extern t_bool		ft_ssl_tools_stdin(t_pvoid args)
+{
+	t_command	*command;
+	t_pchar		line;
+	t_pchar		p;
+	t_pchar		tmp;
+
+	command = args;
+	if ((p = ft_strdup("")) == NULL)
+		return (FALSE);
+	while (get_next_line(0, &line) > 0)
+	{
+		if ((tmp = ft_strjoin(p, line)) == NULL)
+			return (FALSE);
+		free(p);
+		p = tmp;
+	}
+	(*command).param = p;
+	return (TRUE);
 }

@@ -4,12 +4,11 @@
 #include "error.h"
 #include "internal.h"
 
-static void			ft_ssl_print_reverse(t_pchar hash, t_pchar text,
-											t_pchar name, t_lst *flags)
+static void			ft_ssl_print_reverse(t_pchar hash, t_pchar text, t_pchar name, t_command *command)
 {
 	ft_putstr(hash);
 	ft_putstr("  ");
-	if (!ft_ssl_tools_check_flag_name(flags, "-q"))
+	if (!ft_ssl_tools_get_cmd_active(command, "-q"))
 	{
 		if (name)
 		{
@@ -17,11 +16,11 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_pchar text,
 			ft_putstr(name);
 			ft_putstr(")\n");
 		}
-		else if (ft_ssl_tools_check_flag_name(flags, "-p") && !ft_strcmp(text, ft_ssl_tools_get_flag_param(flags, "-p")))
+		else if (ft_ssl_tools_get_cmd_active(command, "-p") && !ft_strcmp(text, ft_ssl_tools_get_cmd_param(command, "-p")))
 		{
 			ft_putendl(text);
 		}
-		else if (!ft_strcmp(text, ft_ssl_tools_get_flag_param(flags, "-s")))
+		else if (!ft_strcmp(text, ft_ssl_tools_get_cmd_param(command, "-s")))
 		{
 			ft_putstr("MD5 ('");
 			ft_putstr(text);
@@ -30,10 +29,9 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_pchar text,
 	}
 }
 
-static void			ft_ssl_print_normal(t_pchar hash, t_pchar text,
-										t_pchar name, t_lst *flags)
+static void			ft_ssl_print_normal(t_pchar hash, t_pchar text, t_pchar name, t_command *command)
 {
-	if (!ft_ssl_tools_check_flag_name(flags, "-q"))
+	if (!ft_ssl_tools_get_cmd_active(command, "-q"))
 	{
 		if (name)
 		{
@@ -41,11 +39,11 @@ static void			ft_ssl_print_normal(t_pchar hash, t_pchar text,
 			ft_putstr(name);
 			ft_putstr(") = ");
 		}
-		else if (ft_ssl_tools_check_flag_name(flags, "-p") && !ft_strcmp(text, ft_ssl_tools_get_flag_param(flags, "-p")))
+		else if (ft_ssl_tools_get_cmd_active(command, "-p") && !ft_strcmp(text, ft_ssl_tools_get_cmd_param(command, "-p")))
 		{
 			ft_putendl(text);
 		}
-		else if (!ft_strcmp(text, ft_ssl_tools_get_flag_param(flags, "-s")))
+		else if (!ft_strcmp(text, ft_ssl_tools_get_cmd_param(command, "-s")))
 		{
 			ft_putstr("MD5 ('");
 			ft_putstr(text);
@@ -56,10 +54,10 @@ static void			ft_ssl_print_normal(t_pchar hash, t_pchar text,
 }
 
 extern void			ft_ssl_print(t_pchar hash, t_pchar text, t_pchar name,
-									t_lst *flags)
+									t_command *command)
 {
-	if (!ft_ssl_tools_check_flag_name(flags, "-r"))
-		ft_ssl_print_normal(hash, text, name, flags);
+	if (!ft_ssl_tools_get_cmd_active(command, "-r"))
+		ft_ssl_print_normal(hash, text, name, command);
 	else
-		ft_ssl_print_reverse(hash, text, name, flags);
+		ft_ssl_print_reverse(hash, text, name, command);
 }

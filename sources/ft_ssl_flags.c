@@ -3,24 +3,7 @@
 #include "error.h"
 #include "internal.h"
 
-static t_bool		ft_ssl_flags_push_back(t_pchar name, t_pvoid function, t_pvoid param, t_lst **flags)
-{
-	t_flag		*flag;
-
-	if (!flags)
-		return (FALSE);
-
-	if ((flag = malloc(sizeof(t_flag))) == NULL)
-		return (FALSE);
-	flag->name = name;
-	flag->function = function;
-	flag->param = param;
-	ft_list_push_back(flags, flag);
-
-	return (TRUE);
-}
-
-static t_bool		ft_ssl_flags_file(int ac, char **av, t_lst **flags)
+static t_bool		ft_ssl_flags_file(int ac, char **av, t_command *command)
 {
 	t_pchar		*args;
 	int			i;
@@ -37,34 +20,41 @@ static t_bool		ft_ssl_flags_file(int ac, char **av, t_lst **flags)
 		i = i + 1;
 	}
 	args[i] = NULL;
-	ft_ssl_flags_push_back("ARGS", NULL, args, flags);
+	(*command).param = args;
+	(*command).active = TRUE;
 
 	return (TRUE);
 }
 
-extern t_bool		ft_ssl_flags(int ac, char **av, t_command *command, t_lst **flags)
+extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 {
 	int		n;
 	int		i;
-
-	if (!flags)
-		return (FALSE);
 
 	n = 0;
 	while (n < ac && *(av[n]) == '-')
 	{
 		i = 0;
-		while (command[i].name != NULL && ft_strcmp(av[n], command[i].name))
+		while ((*command)[i].name != NULL && ft_strcmp(av[n], (*command)[i].name))
 			i = i + 1;
-		if (command[i].name == NULL || n + (int)command[i].param >= ac)
+		if ((*command)[i].name == NULL)
 			return (FALSE);
-		ft_ssl_flags_push_back(command[i].name, command[i].function, ((command[i].param) ? av[n + command[i].param] : NULL), flags);
-
-		n = n + (command[i].param + 1);
+		(*command)[i].active = TRUE;
+		if ((*command)[i].param_offset)
+			(*command)[i].param = ft_strdup(av[n + (*command)[i].param_offset]);
+		n = n + ((*command)[i].param_offset + 1);
+		if((*command)[i].end_flags)
+			break ;
 	}
 
-	if (!ft_ssl_flags_file(ac + n, av + n, flags))
-		return (FALSE);
-
+	i = 0;
+	while ((*command)[i].name != NULL)
+	{
+		if (!ft_strcmp((*command)[i].name, "ARGS"))
+			ft_ssl_flags_file(ac - n, av + n, &((*command)[i]));
+		if (!ft_strcmp((*command)[i].name, "LAUNCH"))
+			(*command)[i].active = (*command)[i - 1].active;
+		i = i + 1;
+	}
 	return (TRUE);
 }
