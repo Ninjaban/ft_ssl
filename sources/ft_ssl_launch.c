@@ -13,27 +13,29 @@ static void			ft_ssl_launch_file_error(t_pchar file_name, t_pchar type)
 	ft_putstr(": No such file or directory\n");
 }
 
-static t_bool		ft_ssl_launch_file(t_settings settings, t_file *file,
+static t_bool		ft_ssl_launch_file(t_lst *flags, t_file *file,
 										t_pchar type)
 {
 	static int		n = 0;
+	t_pchar			*args;
 
-	if (!settings.args.f[n])
+	args = ft_ssl_tools_get_flag_param(flags, "ARGS");
+	if (!args[n])
 		return (FALSE);
 	(*file).name = NULL;
-	if (!ft_map_file(settings.args.f[n], &((*file).content)))
+	if (!ft_map_file(args[n], &((*file).content)))
 	{
-		ft_ssl_launch_file_error(settings.args.f[n], type);
+		ft_ssl_launch_file_error(args[n], type);
 		n = n + 1;
 		return (TRUE);
 	}
-	(*file).name = settings.args.f[n];
+	(*file).name = args[n];
 	n = n + 1;
 	return (TRUE);
 }
 
 static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text, t_pchar name,
-										t_settings settings)
+										t_lst *flags)
 {
 	t_pchar		hash;
 
@@ -44,27 +46,29 @@ static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text, t_pchar name,
 		return (FALSE);
 	if (!ft_strcmp(type, "whirlpool") && !ft_whirlpool_main(text, &hash))
 		return (FALSE);
-	ft_ssl_print(hash, text, name, settings);
+	ft_ssl_print(hash, text, name, flags);
 	return (TRUE);
 }
 
-extern t_bool		ft_ssl_launch(t_pchar type, t_settings settings)
+extern t_bool		ft_ssl_launch(t_pchar type, t_lst *flags)
 {
 	t_file			file;
+	t_pchar			*args;
 
-	if (settings.args.p)
+	args = ft_ssl_tools_get_flag_param(flags, "ARGS");
+	if (ft_ssl_tools_check_flag_name(flags, "-p"))
 	{
-		ft_ssl_launch_hash(type, settings.args.p, NULL, settings);
-		free(settings.args.p);
+		ft_ssl_launch_hash(type, ft_ssl_tools_get_flag_param(flags, "-p"), NULL, flags);
+		free(ft_ssl_tools_get_flag_param(flags, "-p"));
 	}
-	if (settings.s)
-		ft_ssl_launch_hash(type, settings.args.s, NULL, settings);
+	if (ft_ssl_tools_check_flag_name(flags, "-s"))
+		ft_ssl_launch_hash(type, ft_ssl_tools_get_flag_param(flags, "-s"), NULL, flags);
 	BUFFER_CLEAR(file.content);
-	while (settings.args.f && ft_ssl_launch_file(settings, &file, type))
+	while (args && ft_ssl_launch_file(flags, &file, type))
 	{
 		if (file.name)
 		{
-			ft_ssl_launch_hash(type, file.content.bytes, file.name, settings);
+			ft_ssl_launch_hash(type, file.content.bytes, file.name, flags);
 			if (!ft_unmap_file(&file.content))
 				return (FALSE);
 		}

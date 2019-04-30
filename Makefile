@@ -20,7 +20,10 @@ SRC_BASE	=	main.c \
                 ft_ssl_usage.c \
 				ft_ssl_print.c \
 				ft_ssl_settings.c \
+				ft_ssl_flags.c \
 				ft_ssl_launch.c \
+				ft_ssl_init.c \
+				ft_ssl_tools.c \
 				ft_map.c \
 				md5/ft_md5_main.c \
                 md5/ft_md5_init.c \
