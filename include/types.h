@@ -28,20 +28,10 @@ typedef const unsigned char *		t_cpuchar;
 typedef unsigned int				t_uint;
 typedef long long					t_long;
 
-typedef struct
+typedef struct		s_buffer
 {
 	t_uint			size;
 	t_pvoid			bytes;
-} t_buffer;
-
-#define BUFFER_CLEAR(target)					{ (target).size = 0; (target).bytes = NULL; }
-#define BUFFER_SETUP(target, size, bytes)		{ (target).size = (size); (target).bytes = (bytes); }
-#define BUFFER_CHECK(target)					{ (((target).size != 0) && ((target).bytes != NULL)) }
-
-typedef struct		s_position
-{
-	int					x;
-	int					y;
-}					t_position;
+}					t_buffer;
 
 #endif

@@ -12,9 +12,10 @@ static void				ft_whirlpool_print(const uint8_t *array, int length,
 	i = 0;
 	while (i < length)
 	{
-		snprintf((*out) + (i * 2), 3, "%02x", array[i]);
+		ft_itohex(array[i], (*out) + (i * 2), 2);
 		i = i + 1;
 	}
+	(*out)[DIGESTBYTES * 2] = '\0';
 }
 
 extern t_bool			ft_whirlpool_main(t_pchar string, t_pchar *out)
@@ -25,7 +26,7 @@ extern t_bool			ft_whirlpool_main(t_pchar string, t_pchar *out)
 	ft_whirlpool_init(&w);
 	ft_whirlpool_add((t_puchar)string, 8 * ft_strlen(string), &w);
 	ft_whirlpool_finalize(&w, digest);
-	if ((*out = malloc(DIGESTBYTES + 1)) == NULL)
+	if ((*out = malloc(DIGESTBYTES * 2 + 1)) == NULL)
 		return (FALSE);
 	ft_whirlpool_print(digest, DIGESTBYTES, out);
 	return (TRUE);

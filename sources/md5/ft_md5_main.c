@@ -1,14 +1,39 @@
 
 #include <stdlib.h>
 
+#include "libft.h"
 #include "types.h"
 #include "error.h"
 #include "internal/md5.h"
 
+static void			ft_md5_main_result(t_md5 md5, t_pchar *out)
+{
+	uint8_t		*(p[4]);
+	t_uint		n;
+	t_uint		i;
+
+	p[0] = (uint8_t *)&md5.h0;
+	p[1] = (uint8_t *)&md5.h1;
+	p[2] = (uint8_t *)&md5.h2;
+	p[3] = (uint8_t *)&md5.h3;
+	n = 0;
+	i = 0;
+	while (n < 4)
+	{
+		ft_itohex(p[n][i], *out + (n * 8) + (i * 2), 2);
+		i = i + 1;
+		if (i == 4)
+		{
+			i = 0;
+			n = n + 1;
+		}
+	}
+	(*out)[32] = '\0';
+}
+
 extern t_bool		ft_md5_main(t_pchar string, t_pchar *out)
 {
 	t_md5		md5;
-	uint8_t		*(p[4]);
 
 	if (!out)
 		return (FALSE);
@@ -16,12 +41,8 @@ extern t_bool		ft_md5_main(t_pchar string, t_pchar *out)
 		return (FALSE);
 	if (!ft_md5_padding(&md5, (string) ? string : ""))
 		return (FALSE);
-	p[0] = (uint8_t *)&md5.h0;
-	p[1] = (uint8_t *)&md5.h1;
-	p[2] = (uint8_t *)&md5.h2;
-	p[3] = (uint8_t *)&md5.h3;
 	if ((*out = malloc(32 + 1)) == NULL)
 		return (FALSE);
-	snprintf(*out, 32 + 1, "%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x", p[0][0], p[0][1], p[0][2], p[0][3], p[1][0], p[1][1], p[1][2], p[1][3], p[2][0], p[2][1], p[2][2], p[2][3], p[3][0], p[3][1], p[3][2], p[3][3]);
+	ft_md5_main_result(md5, out);
 	return (TRUE);
 }
