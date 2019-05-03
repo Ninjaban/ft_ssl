@@ -51,7 +51,7 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command);
 
 extern t_bool		ft_ssl_launch(t_pchar type, t_command *command);
 
-extern void			ft_ssl_print(t_pchar hash, t_pchar text, t_pchar name, t_command *command);
+extern void			ft_ssl_print(t_pchar hash, t_file file, t_pchar type, t_command *command);
 
 extern t_bool		ft_ssl_tools_get_cmd_active(t_command *command, t_pchar name);
 extern t_pvoid		ft_ssl_tools_get_cmd_param(t_command *command, t_pchar name);
