@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sha256_padding.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsikora <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/07 11:48:13 by nsikora           #+#    #+#             */
+/*   Updated: 2019/05/07 11:57:39 by nsikora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 #include "libft.h"
@@ -7,7 +19,7 @@
 
 extern t_bool	ft_sha256_padding(t_sha256_var *sha256_var, t_pchar string)
 {
-	uint32_t 		i;
+	uint32_t	i;
 
 	i = 0;
 	(*sha256_var).new_len = ft_strlen(string) * 8;
@@ -22,6 +34,7 @@ extern t_bool	ft_sha256_padding(t_sha256_var *sha256_var, t_pchar string)
 		(*sha256_var).msg_32[i] = revers_uint32((*sha256_var).msg_32[i]);
 		i++;
 	}
-	(*sha256_var).msg_32[(((*sha256_var).offset * 512 - 64) / 32) + 1] = (*sha256_var).new_len;
+	(*sha256_var).msg_32[(((*sha256_var).offset * 512 - 64) / 32)
+	+ 1] = (*sha256_var).new_len;
 	return (TRUE);
 }
