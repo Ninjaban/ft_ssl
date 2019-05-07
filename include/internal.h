@@ -24,37 +24,21 @@ typedef struct		s_file
 	t_buffer		content;
 }					t_file;
 
-typedef struct		s_args
-{
-	t_pchar			p;
-	t_pchar			s;
-
-	t_pchar			*f;
-}					t_args;
-
-typedef struct		s_settings
-{
-	t_bool			p;
-	t_bool			q;
-	t_bool			r;
-	t_bool			s;
-
-	t_args			args;
-}					t_settings;
-
-typedef struct		s_flag
-{
-	t_pchar			name;
-	void			(*function);
-	t_pvoid			param;
-}					t_flag;
-
 typedef struct		s_command
 {
 	t_pchar			name;
+	t_bool			active;
 	void			(*function);
-	t_uint			param;
+	t_pvoid			param;
+	t_uint			param_offset;
+	t_bool			end_flags;
 }					t_command;
+
+typedef struct		s_ninit
+{
+	t_uint			param_offset;
+	t_bool			end_flags;
+}					t_ninit;
 
 extern t_bool		ft_ssl(int ac, char **av);
 
@@ -63,16 +47,16 @@ extern void			ft_ssl_usage_command(void);
 extern void			ft_ssl_error_command(t_pchar cmd);
 
 extern t_bool		ft_ssl_init(t_command **command, t_pchar type);
-extern t_bool		ft_ssl_flags(int ac, char **av, t_command *command, t_lst **flags);
+extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command);
 
-extern t_bool		ft_ssl_settings(int ac, char **av, t_settings *settings);
+extern t_bool		ft_ssl_launch(t_pchar type, t_command *command);
 
-extern t_bool		ft_ssl_launch(t_pchar type, t_lst *flags);
+extern void			ft_ssl_print(t_pchar hash, t_file file, t_pchar type, t_command *command);
 
-extern void			ft_ssl_print(t_pchar hash, t_pchar text, t_pchar name, t_lst *flags);
-
-extern t_bool		ft_ssl_tools_check_flag_name(t_lst *flags, t_pchar name);
-extern t_pvoid		ft_ssl_tools_get_flag_param(t_lst *flags, t_pchar name);
+extern t_bool		ft_ssl_tools_get_cmd_active(t_command *command, t_pchar name);
+extern t_pvoid		ft_ssl_tools_get_cmd_param(t_command *command, t_pchar name);
+extern t_pvoid		ft_ssl_tools_get_cmd_function(t_command *command, t_pchar name);
+extern t_bool		ft_ssl_tools_stdin(t_pvoid args);
 
 extern t_bool		ft_map_file(const char *path, t_buffer *file);
 extern t_bool		ft_unmap_file(t_buffer *file);

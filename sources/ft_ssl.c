@@ -7,9 +7,7 @@
 
 extern t_bool		ft_ssl(int ac, char **av)
 {
-//	t_settings		settings;
 	t_command		*command;
-	t_lst			*flags;
 
 	if (ac < 2)
 	{
@@ -23,12 +21,10 @@ extern t_bool		ft_ssl(int ac, char **av)
 		return (FALSE);
 	}
 
-	flags = NULL;
-	if (!ft_ssl_flags(ac - 2, av + 2, command, &flags))
+	if (!ft_ssl_flags(ac - 2, av + 2, &command))
 		return (FALSE);
-//	if (!ft_ssl_settings(ac - 2, av + 2, &settings))
-//		return (FALSE);
-	if (!ft_ssl_launch(av[1], flags))
+	FT_DEBUG("%s", "launch");
+	if (!ft_ssl_launch(av[1], command))
 		return (FALSE);
 	return (TRUE);
 }

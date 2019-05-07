@@ -13,13 +13,11 @@ static void			ft_ssl_launch_file_error(t_pchar file_name, t_pchar type)
 	ft_putstr(": No such file or directory\n");
 }
 
-static t_bool		ft_ssl_launch_file(t_lst *flags, t_file *file,
+static t_bool		ft_ssl_launch_file(t_pchar *args, t_file *file,
 										t_pchar type)
 {
 	static int		n = 0;
-	t_pchar			*args;
 
-	args = ft_ssl_tools_get_flag_param(flags, "ARGS");
 	if (!args[n])
 		return (FALSE);
 	(*file).name = NULL;
@@ -34,44 +32,63 @@ static t_bool		ft_ssl_launch_file(t_lst *flags, t_file *file,
 	return (TRUE);
 }
 
-static t_bool		ft_ssl_launch_hash(t_pchar type, t_pchar text, t_pchar name,
-										t_lst *flags)
+static void			ft_ssl_launch_function(t_command *command, t_uint n, void (*print)(t_pchar, t_file, t_pchar, t_command *), t_pchar type)
 {
-	t_pchar		hash;
-
-	hash = NULL;
-	if (!ft_strcmp(type, "md5") && !ft_md5_main(text, &hash))
-		return (FALSE);
-	if (!ft_strcmp(type, "sha256") && !ft_sha256_main(text, &hash))
-		return (FALSE);
-	if (!ft_strcmp(type, "whirlpool") && !ft_whirlpool_main(text, &hash))
-		return (FALSE);
-	ft_ssl_print(hash, text, name, flags);
-	return (TRUE);
-}
-
-extern t_bool		ft_ssl_launch(t_pchar type, t_lst *flags)
-{
+	void			(*function)(t_pvoid *);
+	void			(*launch)(t_pchar *, t_pchar *);
+	t_pchar			hash;
 	t_file			file;
-	t_pchar			*args;
 
-	args = ft_ssl_tools_get_flag_param(flags, "ARGS");
-	if (ft_ssl_tools_check_flag_name(flags, "-p"))
+	if (!command[n].active)
+		return ;
+	if (ft_strcmp(command[n].name, "LAUNCH"))
 	{
-		ft_ssl_launch_hash(type, ft_ssl_tools_get_flag_param(flags, "-p"), NULL, flags);
-		free(ft_ssl_tools_get_flag_param(flags, "-p"));
+		if ((function = command[n].function))
+			function((t_pvoid)(&(command[n])));
 	}
-	if (ft_ssl_tools_check_flag_name(flags, "-s"))
-		ft_ssl_launch_hash(type, ft_ssl_tools_get_flag_param(flags, "-s"), NULL, flags);
-	BUFFER_CLEAR(file.content);
-	while (args && ft_ssl_launch_file(flags, &file, type))
+	else
 	{
-		if (file.name)
+		launch = command[n].function;
+		if (ft_strcmp(command[n - 1].name, "ARGS"))
 		{
-			ft_ssl_launch_hash(type, file.content.bytes, file.name, flags);
-			if (!ft_unmap_file(&file.content))
-				return (FALSE);
+			launch(command[n - 1].param, &hash);
+			file.name = NULL;
+			file.content.bytes = command[n - 1].param;
+			file.content.size = ft_strlen(command[n - 1].param);
+			print(hash, file, type, command);
+			ft_strdel((t_pchar *)&command[n - 1].param);
+		}
+		else
+		{
+			while (ft_ssl_launch_file(command[n - 1].param, &file, type))
+			{
+				if (file.name)
+				{
+					launch(file.content.bytes, &hash);
+					print(hash, file, type, command);
+					if (!ft_unmap_file(&file.content))
+						return;
+				}
+			}
 		}
 	}
+
+}
+
+extern t_bool		ft_ssl_launch(t_pchar type, t_command *command)
+{
+	void			(*print)(t_pchar, t_file, t_pchar, t_command *);
+	t_uint			n;
+
+	n = 0;
+	print = ft_ssl_tools_get_cmd_function(command, "PRINT");
+	while (command[n].name != NULL && ft_strcmp(command[n].name, "PRINT"))
+	{
+		FT_DEBUG("name %s active %s", command[n].name, (command[n].active) ? "TRUE" : "FALSE");
+		ft_ssl_launch_function(command, n, print, type);
+
+		n = n + 1;
+	}
+
 	return (TRUE);
 }
