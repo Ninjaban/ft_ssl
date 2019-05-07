@@ -18,15 +18,15 @@
 extern t_bool		ft_sha256_main(t_pchar string, t_pchar *out)
 {
 	t_sha256		sha256;
-	t_sha256_var	sha256_var;
+	t_sha256_var	var;
 
 	if (!out)
 		return (FALSE);
 	if (!ft_sha256_init(&sha256))
 		return (FALSE);
-	if (!ft_sha256_padding(&sha256_var, (string) ? string : ""))
+	if (!ft_sha256_padding(&var, (string) ? string : ""))
 		return (FALSE);
-	if (!ft_sha256_loop_main(&sha256, &sha256_var))
+	if (!ft_sha256_loop_main(&sha256, &var))
 		return (FALSE);
 	if ((*out = malloc(64 + 1)) == NULL)
 		return (FALSE);

@@ -17,76 +17,80 @@
 #include "error.h"
 #include "internal/sha256.h"
 
-static void		ft_sha256_loop_init(t_sha256 *sha256, t_sha256_var *sha256_var, int i)
+static void		ft_sha256_loop_init(t_sha256 *sha256, t_sha256_var *var, int i)
 {
-	int j;
+	int			j;
 
-	(*sha256_var).w = malloc(512);
-	ft_bzero((*sha256_var).w, 512);
-	ft_memcpy((*sha256_var).w, &(*sha256_var).msg_32[i * 16], 16 * 32);
+	(*var).a = (*sha256).h0;
+	(*var).b = (*sha256).h1;
+	(*var).c = (*sha256).h2;
+	(*var).d = (*sha256).h3;
+	(*var).e = (*sha256).h4;
+	(*var).f = (*sha256).h5;
+	(*var).g = (*sha256).h6;
+	(*var).h = (*sha256).h7;
+	(*var).w = malloc(512);
+	ft_bzero((*var).w, 512);
+	ft_memcpy((*var).w, &(*var).msg_32[i * 16], 16 * 32);
 	j = 16;
 	while (j < 64)
 	{
-		(*sha256_var).o0 = rightRotate((*sha256_var).w[j - 15], 7) ^
-		rightRotate((*sha256_var).w[j - 15], 18) ^ ((*sha256_var).w[j - 15] >> 3);
-		(*sha256_var).o1 = rightRotate((*sha256_var).w[j - 2], 17) ^
-		rightRotate((*sha256_var).w[j - 2], 19) ^ ((*sha256_var).w[j - 2] >> 10);
-		(*sha256_var).w[j] = (*sha256_var).w[j - 16] + (*sha256_var).o0
-        + (*sha256_var).w[j - 7] + (*sha256_var).o1;
+		(*var).o0 = rightRotate((*var).w[j - 15], 7) ^
+		rightRotate((*var).w[j - 15], 18) ^ ((*var).w[j - 15] >> 3);
+		(*var).o1 = rightRotate((*var).w[j - 2], 17) ^
+		rightRotate((*var).w[j - 2], 19) ^ ((*var).w[j - 2] >> 10);
+		(*var).w[j] = (*var).w[j - 16] + (*var).o0
+		+ (*var).w[j - 7] + (*var).o1;
 		j++;
 	}
-	(*sha256_var).a = (*sha256).h0;
-	(*sha256_var).b = (*sha256).h1;
-	(*sha256_var).c = (*sha256).h2;
-	(*sha256_var).d = (*sha256).h3;
-	(*sha256_var).e = (*sha256).h4;
-	(*sha256_var).f = (*sha256).h5;
-	(*sha256_var).g = (*sha256).h6;
-	(*sha256_var).h = (*sha256).h7;
 }
 
-static void		sha256_algo(t_sha256 *sha256, t_sha256_var *sha256_var, int j)
+static void		sha256_algo(t_sha256 *sha256, t_sha256_var *var, int j)
 {
-	(*sha256_var).ch = ((*sha256_var).e & (*sha256_var).f) ^ ((~(*sha256_var).e) & (*sha256_var).g);
-	(*sha256_var).maj = ((*sha256_var).a & (*sha256_var).b) ^ ((*sha256_var).a & (*sha256_var).c) ^ ((*sha256_var).b & (*sha256_var).c);
-	(*sha256_var).e0 = rightRotate((*sha256_var).a, 2) ^ rightRotate((*sha256_var).a, 13) ^ rightRotate((*sha256_var).a, 22);
-	(*sha256_var).e1 = rightRotate((*sha256_var).e, 6) ^ rightRotate((*sha256_var).e, 11) ^ rightRotate((*sha256_var).e, 25);
-	(*sha256).t1 = (*sha256_var).h + (*sha256_var).e1 + (*sha256_var).ch + (*sha256).k[j] + (*sha256_var).w[j];
-	(*sha256).t2 = (*sha256_var).e0 + (*sha256_var).maj;
-	(*sha256_var).h = (*sha256_var).g;
-	(*sha256_var).g = (*sha256_var).f;
-	(*sha256_var).f = (*sha256_var).e;
-	(*sha256_var).e = (*sha256_var).d + (*sha256).t1;
-	(*sha256_var).d = (*sha256_var).c;
-	(*sha256_var).c = (*sha256_var).b;
-	(*sha256_var).b = (*sha256_var).a;
-	(*sha256_var).a = (*sha256).t1 + (*sha256).t2;
+	(*var).ch = ((*var).e & (*var).f) ^ ((~(*var).e) & (*var).g);
+	(*var).maj = ((*var).a & (*var).b) ^ ((*var).a & (*var).c)
+	^ ((*var).b & (*var).c);
+	(*var).e0 = rightRotate((*var).a, 2) ^ rightRotate((*var).a, 13)
+	^ rightRotate((*var).a, 22);
+	(*var).e1 = rightRotate((*var).e, 6) ^ rightRotate((*var).e, 11)
+	^ rightRotate((*var).e, 25);
+	(*sha256).t1 = (*var).h + (*var).e1 + (*var).ch + (*sha256).k[j]
+	+ (*var).w[j];
+	(*sha256).t2 = (*var).e0 + (*var).maj;
+	(*var).h = (*var).g;
+	(*var).g = (*var).f;
+	(*var).f = (*var).e;
+	(*var).e = (*var).d + (*sha256).t1;
+	(*var).d = (*var).c;
+	(*var).c = (*var).b;
+	(*var).b = (*var).a;
+	(*var).a = (*sha256).t1 + (*sha256).t2;
 }
 
-extern t_bool       ft_sha256_loop_main(t_sha256 *sha256, t_sha256_var *sha256_var)
+extern t_bool	ft_sha256_loop_main(t_sha256 *sha256, t_sha256_var *var)
 {
-    size_t             i;
-    size_t             j;
+	size_t		i;
+	size_t		j;
 
-    i = 0;
-    j = 0;
-	while (i < (*sha256_var).offset)
+	i = 0;
+	j = 0;
+	while (i < (*var).offset)
 	{
-		ft_sha256_loop_init(sha256, sha256_var, i);
+		ft_sha256_loop_init(sha256, var, i);
 		j = -1;
 		while (++j < 64)
-			sha256_algo(sha256, sha256_var, j);
-        (*sha256).h0 += (*sha256_var).a;
-		(*sha256).h1 += (*sha256_var).b;
-		(*sha256).h2 += (*sha256_var).c;
-		(*sha256).h3 += (*sha256_var).d;
-		(*sha256).h4 += (*sha256_var).e;
-		(*sha256).h5 += (*sha256_var).f;
-		(*sha256).h6 += (*sha256_var).g;
-		(*sha256).h7 += (*sha256_var).h;
-		free((*sha256_var).w);
+			sha256_algo(sha256, var, j);
+		(*sha256).h0 += (*var).a;
+		(*sha256).h1 += (*var).b;
+		(*sha256).h2 += (*var).c;
+		(*sha256).h3 += (*var).d;
+		(*sha256).h4 += (*var).e;
+		(*sha256).h5 += (*var).f;
+		(*sha256).h6 += (*var).g;
+		(*sha256).h7 += (*var).h;
+		free((*var).w);
 		i++;
 	}
-    free((*sha256_var).msg_32);
-    return(TRUE);
+	free((*var).msg_32);
+	return (TRUE);
 }
