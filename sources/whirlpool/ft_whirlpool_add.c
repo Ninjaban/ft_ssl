@@ -15,7 +15,7 @@ static void			ft_whirlpool_add_length(uint64_t source_bits,
 	value = source_bits;
 	while (i >= 0 && (carry != 0 || value != LL(0)))
 	{
-		carry += bit_length[i] + ((uint32_t)value & 0xff);
+		carry += bit_length[i] + ((uint32_t)value & 0xffu);
 		bit_length[i] = (uint8_t)carry;
 		carry >>= 8;
 		value >>= 8;

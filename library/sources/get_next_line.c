@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/08 13:39:42 by jcarra            #+#    #+#             */
+/*   Updated: 2019/05/08 13:39:42 by jcarra           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static char		*check_buf(char *buf)
@@ -33,7 +45,6 @@ static int		ft_strjoin_free(char **buf, char *tmp)
 	{
 		if ((new = ft_strjoin(*buf, tmp)) == NULL)
 			return (ERROR);
-//		free(*buf);
 		*buf = new;
 	}
 	return (0);
