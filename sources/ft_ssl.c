@@ -32,7 +32,6 @@ extern t_bool		ft_ssl(int ac, char **av)
 	}
 	if (!ft_ssl_flags(ac - 2, av + 2, &command))
 		return (FALSE);
-	FT_DEBUG("%s", "launch");
 	if (!ft_ssl_launch(av[1], command))
 		return (FALSE);
 	return (TRUE);
