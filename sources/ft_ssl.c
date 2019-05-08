@@ -14,13 +14,11 @@ extern t_bool		ft_ssl(int ac, char **av)
 		ft_ssl_usage();
 		return (FALSE);
 	}
-
 	if (!ft_ssl_init(&command, av[1]))
 	{
 		ft_ssl_error_command(av[1]);
 		return (FALSE);
 	}
-
 	if (!ft_ssl_flags(ac - 2, av + 2, &command))
 		return (FALSE);
 	FT_DEBUG("%s", "launch");

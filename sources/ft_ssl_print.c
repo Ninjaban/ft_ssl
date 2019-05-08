@@ -4,7 +4,8 @@
 #include "error.h"
 #include "internal.h"
 
-static void			ft_ssl_print_reverse(t_pchar hash, t_file file, t_pchar type, t_command *command)
+static void			ft_ssl_print_reverse(t_pchar hash, t_file file,
+										t_pchar type, t_command *command)
 {
 	ft_putstr(hash);
 	ft_putstr("  ");
@@ -17,11 +18,13 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_file file, t_pchar type, t_co
 			ft_putstr(file.name);
 			ft_putstr(")\n");
 		}
-		else if (ft_ssl_tools_get_cmd_active(command, "-p") && !ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-p")))
+		else if (ft_ssl_tools_get_cmd_active(command, "-p") &&
+	!ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-p")))
 		{
 			ft_putendl(file.content.bytes);
 		}
-		else if (!ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-s")))
+		else if (!ft_strcmp(file.content.bytes,
+				ft_ssl_tools_get_cmd_param(command, "-s")))
 		{
 			ft_putstr(type);
 			ft_putstr(" ('");
@@ -31,7 +34,8 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_file file, t_pchar type, t_co
 	}
 }
 
-static void			ft_ssl_print_normal(t_pchar hash, t_file file, t_pchar type, t_command *command)
+static void			ft_ssl_print_normal(t_pchar hash, t_file file, t_pchar type,
+										t_command *command)
 {
 	if (!ft_ssl_tools_get_cmd_active(command, "-q"))
 	{
@@ -42,11 +46,13 @@ static void			ft_ssl_print_normal(t_pchar hash, t_file file, t_pchar type, t_com
 			ft_putstr(file.name);
 			ft_putstr(") = ");
 		}
-		else if (ft_ssl_tools_get_cmd_active(command, "-p") && !ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-p")))
+		else if (ft_ssl_tools_get_cmd_active(command, "-p") &&
+	!ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-p")))
 		{
 			ft_putendl(file.content.bytes);
 		}
-		else if (!ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-s")))
+		else if (!ft_strcmp(file.content.bytes,
+				ft_ssl_tools_get_cmd_param(command, "-s")))
 		{
 			ft_putstr(type);
 			ft_putstr(" ('");

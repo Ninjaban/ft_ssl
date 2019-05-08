@@ -35,10 +35,10 @@ static void		ft_sha256_loop_init(t_sha256 *sha256, t_sha256_var *var, int i)
 	j = 16;
 	while (j < 64)
 	{
-		(*var).o0 = rightRotate((*var).w[j - 15], 7) ^
-		rightRotate((*var).w[j - 15], 18) ^ ((*var).w[j - 15] >> 3);
-		(*var).o1 = rightRotate((*var).w[j - 2], 17) ^
-		rightRotate((*var).w[j - 2], 19) ^ ((*var).w[j - 2] >> 10);
+		(*var).o0 = RIGHTROTATE((*var).w[j - 15], 7) ^
+		RIGHTROTATE((*var).w[j - 15], 18) ^ ((*var).w[j - 15] >> 3);
+		(*var).o1 = RIGHTROTATE((*var).w[j - 2], 17) ^
+		RIGHTROTATE((*var).w[j - 2], 19) ^ ((*var).w[j - 2] >> 10);
 		(*var).w[j] = (*var).w[j - 16] + (*var).o0
 		+ (*var).w[j - 7] + (*var).o1;
 		j++;
@@ -50,10 +50,10 @@ static void		sha256_algo(t_sha256 *sha256, t_sha256_var *var, int j)
 	(*var).ch = ((*var).e & (*var).f) ^ ((~(*var).e) & (*var).g);
 	(*var).maj = ((*var).a & (*var).b) ^ ((*var).a & (*var).c)
 	^ ((*var).b & (*var).c);
-	(*var).e0 = rightRotate((*var).a, 2) ^ rightRotate((*var).a, 13)
-	^ rightRotate((*var).a, 22);
-	(*var).e1 = rightRotate((*var).e, 6) ^ rightRotate((*var).e, 11)
-	^ rightRotate((*var).e, 25);
+	(*var).e0 = RIGHTROTATE((*var).a, 2) ^ RIGHTROTATE((*var).a, 13)
+	^ RIGHTROTATE((*var).a, 22);
+	(*var).e1 = RIGHTROTATE((*var).e, 6) ^ RIGHTROTATE((*var).e, 11)
+	^ RIGHTROTATE((*var).e, 25);
 	(*sha256).t1 = (*var).h + (*var).e1 + (*var).ch + (*sha256).k[j]
 	+ (*var).w[j];
 	(*sha256).t2 = (*var).e0 + (*var).maj;

@@ -4,7 +4,8 @@
 #include "types.h"
 #include "internal.h"
 
-extern t_bool		ft_ssl_tools_get_cmd_active(t_command *command, t_pchar name)
+extern t_bool		ft_ssl_tools_get_cmd_active(t_command *command,
+												t_pchar name)
 {
 	t_uint		n;
 
@@ -24,7 +25,8 @@ extern t_pvoid		ft_ssl_tools_get_cmd_param(t_command *command, t_pchar name)
 	return (command[n].param);
 }
 
-extern t_pvoid		ft_ssl_tools_get_cmd_function(t_command *command, t_pchar name)
+extern t_pvoid		ft_ssl_tools_get_cmd_function(t_command *command,
+													t_pchar name)
 {
 	t_uint		n;
 

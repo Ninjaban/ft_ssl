@@ -56,10 +56,7 @@ static char	**complete_tab(char const *s, char const c, char **tab)
 	while (s[n] || (n > 0 && !s[n] && s[n - 1] == c))
 	{
 		if ((tab[i] = malloc(size_word(s, c, n) + 1)) == NULL)
-		{
-			write(2, "malloc2", 7);
 			return (NULL);
-		}
 		j = 0;
 		while (s[n] && s[n] != c)
 			tab[i][j++] = s[n++];
@@ -67,7 +64,7 @@ static char	**complete_tab(char const *s, char const c, char **tab)
 		if (s[n])
 			n = n + 1;
 		if (bool == 1)
-			break;
+			break ;
 		if (!s[n])
 			bool = 1;
 	}
@@ -83,10 +80,7 @@ char		**ft_cstrsplit(char const *s, char const c)
 		return (NULL);
 	word = count_word(s, c);
 	if ((tab = malloc(sizeof(char *) * (word + 1))) == NULL)
-	{
-		write(2, "malloc1", 7);
 		return (NULL);
-	}
 	while (word >= 0)
 		tab[word--] = NULL;
 	if ((tab = complete_tab(s, c, tab)) == NULL)

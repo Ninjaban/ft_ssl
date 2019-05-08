@@ -1,4 +1,3 @@
-
 #include "libft.h"
 #include "types.h"
 #include "internal/whirlpool.h"
@@ -32,8 +31,8 @@ extern void			ft_whirlpool_finalize(t_whirlpool *out_whirlpool,
 	int			buffer_pos;
 
 	buffer = out_whirlpool->buffer;
-	buffer_bits = out_whirlpool->bufferBits;
-	buffer_pos = out_whirlpool->bufferPos;
+	buffer_bits = out_whirlpool->buffer_bits;
+	buffer_pos = out_whirlpool->buffer_pos;
 	buffer[buffer_pos++] |= 0x80U >> (buffer_bits & 7);
 	if (buffer_pos > WBLOCKBYTES - LENGTHBYTES)
 	{
@@ -46,10 +45,10 @@ extern void			ft_whirlpool_finalize(t_whirlpool *out_whirlpool,
 		ft_memset(&buffer[buffer_pos], 0,
 				(WBLOCKBYTES - LENGTHBYTES) - buffer_pos);
 	buffer_pos = WBLOCKBYTES - LENGTHBYTES;
-	ft_memcpy(&buffer[WBLOCKBYTES - LENGTHBYTES], out_whirlpool->bitLength,
+	ft_memcpy(&buffer[WBLOCKBYTES - LENGTHBYTES], out_whirlpool->bit_length,
 			LENGTHBYTES);
 	ft_whirlpool_process(out_whirlpool);
 	ft_whirlpool_finalize_digest(out_whirlpool, digest);
-	out_whirlpool->bufferBits = buffer_bits;
-	out_whirlpool->bufferPos = buffer_pos;
+	out_whirlpool->buffer_bits = buffer_bits;
+	out_whirlpool->buffer_pos = buffer_pos;
 }

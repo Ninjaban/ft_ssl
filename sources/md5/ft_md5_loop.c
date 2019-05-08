@@ -45,7 +45,7 @@ static void			ft_md5_loop_main(t_md5 md5, const int *w, t_md5_var *var)
 		tmp = (*var).d;
 		(*var).d = (*var).c;
 		(*var).c = (*var).b;
-		(*var).b = (leftRotate(((*var).a + f + md5.k[i] + w[g]), md5.r[i])) +
+		(*var).b = (LEFTROTATE(((*var).a + f + md5.k[i] + w[g]), md5.r[i])) +
 					(*var).b;
 		(*var).a = tmp;
 		i = i + 1;

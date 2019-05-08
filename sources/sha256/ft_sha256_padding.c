@@ -31,7 +31,7 @@ extern t_bool	ft_sha256_padding(t_sha256_var *var, t_pchar string)
 	((char*)(*var).msg_32)[ft_strlen(string)] = 0x80;
 	while (i < ((*var).offset * 16) - 1)
 	{
-		(*var).msg_32[i] = reverseUint32((*var).msg_32[i]);
+		(*var).msg_32[i] = REVERSEUINT32((*var).msg_32[i]);
 		i++;
 	}
 	(*var).msg_32[(((*var).offset * 512 - 64) / 32)

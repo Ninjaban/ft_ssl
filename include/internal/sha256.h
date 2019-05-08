@@ -13,8 +13,8 @@
 #ifndef SHA256_H
 # define SHA256_H
 
-# define rightRotate(x, c)	(((x) >> (c)) | ((x) << (32 - (c))))
-# define reverseUint32(x)	((x >> 24) | ((x & 0xff0000) >> 8) | ((x & 0xff00) << 8) | (x << 24));
+# define RIGHTROTATE(x, c)	(((x) >> (c)) | ((x) << (32 - (c))))
+# define REVERSEUINT32(x)	((x >> 24) | ((x & 0xff0000) >> 8) | ((x & 0xff00) << 8) | (x << 24));
 
 extern t_bool	ft_sha256_main(t_pchar string, t_pchar *out);
 

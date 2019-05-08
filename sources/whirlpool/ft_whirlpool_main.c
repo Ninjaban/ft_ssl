@@ -1,13 +1,12 @@
-
 #include <stdio.h>
 #include "libft.h"
 #include "types.h"
 #include "internal/whirlpool.h"
 
-static void				ft_whirlpool_print(const uint8_t *array, int length,
-											t_pchar *out)
+static void			ft_whirlpool_print(const uint8_t *array, int length,
+		t_pchar *out)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < length)
@@ -18,7 +17,7 @@ static void				ft_whirlpool_print(const uint8_t *array, int length,
 	(*out)[DIGESTBYTES * 2] = '\0';
 }
 
-extern t_bool			ft_whirlpool_main(t_pchar string, t_pchar *out)
+extern t_bool		ft_whirlpool_main(t_pchar string, t_pchar *out)
 {
 	t_whirlpool		w;
 	uint8_t			digest[DIGESTBYTES];
