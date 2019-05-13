@@ -17,6 +17,12 @@
 #include "error.h"
 #include "internal/sha256.h"
 
+static uint32_t	reverse_uint32(uint32_t n)
+{
+	return ((n >> 24) | ((n & 0xff0000) >> 8)
+	| ((n & 0xff00) << 8) | (n << 24));
+}
+
 extern t_bool	ft_sha256_padding(t_sha256_var *var, t_pchar string)
 {
 	uint32_t	i;
@@ -31,7 +37,7 @@ extern t_bool	ft_sha256_padding(t_sha256_var *var, t_pchar string)
 	((char*)(*var).msg_32)[ft_strlen(string)] = 0x80;
 	while (i < ((*var).offset * 16) - 1)
 	{
-		(*var).msg_32[i] = REVERSEUINT32((*var).msg_32[i]);
+		(*var).msg_32[i] = reverse_uint32((*var).msg_32[i]);
 		i++;
 	}
 	(*var).msg_32[(((*var).offset * 512 - 64) / 32)
