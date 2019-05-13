@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:30:11 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/08 13:30:11 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 09:44:34 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct		s_file
 	t_buffer		content;
 }					t_file;
 
+typedef struct		s_default
+{
+	t_bool			is_default;
+	t_pchar			*list;
+}					t_default;
+
 typedef struct		s_command
 {
 	t_pchar			name;
@@ -31,6 +37,7 @@ typedef struct		s_command
 	t_pvoid			param;
 	t_uint			param_offset;
 	t_bool			end_flags;
+	t_default		defaut;
 }					t_command;
 
 typedef struct		s_ninit

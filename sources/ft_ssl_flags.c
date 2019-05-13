@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:51 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/08 13:28:51 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 10:07:07 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,34 @@ static void			ft_ssl_flags_end(int ac, char **av, t_command **command,
 	}
 }
 
+static void			ft_ssl_flags_default(t_command **command)
+{
+	int		n;
+	int		i;
+	int		j;
+	t_bool	active;
+
+	n = 0;
+	while ((*command)[n].name != NULL)
+	{
+		i = 0;
+		active = (*command)[n].defaut.is_default;
+		while (active && (*command)[i].name != NULL)
+		{
+			j = 0;
+			while ((*command)[n].defaut.list[j] && (*command)[i].active)
+			{
+				if (!ft_strcmp((*command)[i].name,
+							   (*command)[n].defaut.list[j++]))
+					active = FALSE;
+			}
+			i = i + 1;
+		}
+		(*command)[n].active = ((*command)[n].active) ? TRUE : active;
+		n = n + 1;
+	}
+}
+
 extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 {
 	int		n;
@@ -73,6 +101,7 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 		if ((*command)[i].end_flags)
 			break ;
 	}
+	ft_ssl_flags_default(command);
 	ft_ssl_flags_end(ac, av, command, n);
 	return (TRUE);
 }
