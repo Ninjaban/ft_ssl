@@ -18,7 +18,7 @@
 static void			ft_sha256_main_result(t_sha256 sha256, t_pchar *out)
 {
 	uint32_t		p[8];
-	t_uint		n;
+	t_uint			n;
 
 	p[0] = sha256.h0;
 	p[1] = sha256.h1;

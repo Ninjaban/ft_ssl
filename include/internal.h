@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:30:11 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 10:25:48 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 10:26:04 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ extern void			ft_ssl_init_add_launch(void (*function),
 											t_command *command);
 extern void			ft_ssl_init_add_cmd(t_pchar name, void (*function),
 											t_ninit ninit, t_command *command);
-
 
 extern t_bool		ft_ssl_init(t_command **command, t_pchar type);
 extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command);
