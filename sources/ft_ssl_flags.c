@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:51 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 10:07:07 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 10:15:52 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void			ft_ssl_flags_default(t_command **command)
 			while ((*command)[n].defaut.list[j] && (*command)[i].active)
 			{
 				if (!ft_strcmp((*command)[i].name,
-							   (*command)[n].defaut.list[j++]))
+								(*command)[n].defaut.list[j++]))
 					active = FALSE;
 			}
 			i = i + 1;
