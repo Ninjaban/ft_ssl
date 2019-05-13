@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:44 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 12:07:09 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 12:10:05 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "types.h"
 #include "internal.h"
 
-static t_bool		ft_ssl_init_hash (t_command **command, void (*function))
+static t_bool		ft_ssl_init_hash(t_command **command, void (*function))
 {
 	int		n;
 
