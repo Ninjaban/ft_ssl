@@ -29,10 +29,10 @@ extern t_bool	ft_sha256_padding(t_sha256_var *var, t_pchar string)
 
 	i = 0;
 	(*var).new_len = ft_strlen(string) * 8;
-	(*var).offset = 1 + (((*var).new_len + 16 + 64) / 512);
-	if (!((*var).msg_32 = malloc(16 * (*var).offset * 4)))
+	(*var).offset = 1 + (((*var).new_len) / 448);
+	if (!((*var).msg_32 = malloc(32 * (*var).offset * 2)))
 		return (-1);
-	ft_bzero((*var).msg_32, 16 * (*var).offset * 4);
+	ft_bzero((*var).msg_32, 32 * (*var).offset * 2);
 	ft_strcpy((char *)(*var).msg_32, string);
 	((char*)(*var).msg_32)[ft_strlen(string)] = 0x80;
 	while (i < ((*var).offset * 16) - 1)
