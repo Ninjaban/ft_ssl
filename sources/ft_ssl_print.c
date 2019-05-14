@@ -81,4 +81,5 @@ extern void			ft_ssl_print(t_pchar hash, t_file file, t_pchar type,
 		ft_ssl_print_normal(hash, file, type, command);
 	else
 		ft_ssl_print_reverse(hash, file, type, command);
+	free(hash);
 }

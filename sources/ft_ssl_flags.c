@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:51 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 10:15:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/13 12:14:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_bool		ft_ssl_flags_file(int ac, char **av, t_command *command)
 	t_pchar		*args;
 	int			i;
 
-	if (ac <= 0)
+	if (ac <= 0 || (*command).active == TRUE)
 		return (TRUE);
 	i = 0;
 	if ((args = malloc(sizeof(t_buffer) * (ac + 1))) == NULL)
@@ -101,6 +101,7 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 		if ((*command)[i].end_flags)
 			break ;
 	}
+	ft_ssl_flags_end(ac, av, command, n);
 	ft_ssl_flags_default(command);
 	ft_ssl_flags_end(ac, av, command, n);
 	return (TRUE);
