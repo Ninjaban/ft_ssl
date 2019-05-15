@@ -57,6 +57,5 @@ extern t_bool		ft_ssl(int ac, char **av)
 	if (!ft_ssl_launch(av[1], command))
 		return (FALSE);
 	ft_ssl_free(command);
-	while (42);
 	return (TRUE);
 }
