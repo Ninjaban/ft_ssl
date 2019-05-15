@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:58 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/08 13:55:54 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/15 15:49:30 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,22 @@ extern t_bool		ft_ssl_tools_stdin(t_pvoid args)
 	t_pchar		line;
 	t_pchar		p;
 	t_pchar		tmp;
+	int			nbr;
 
 	command = args;
 	if ((p = ft_strdup("")) == NULL)
 		return (FALSE);
-	while (get_next_line(0, &line) > 0)
+	if ((line = malloc(4096 + 1)) == NULL)
+		return (FALSE);
+	while ((nbr = read(0, line, 4096)) > 0)
 	{
+		line[nbr] = '\0';
 		if ((tmp = ft_strjoin(p, line)) == NULL)
 			return (FALSE);
 		free(p);
 		p = tmp;
 	}
+	free(line);
 	(*command).param = p;
 	return (TRUE);
 }

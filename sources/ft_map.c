@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:29:15 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/08 13:55:54 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/15 16:05:22 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,27 @@ extern t_bool		ft_map_file(const char *path, t_buffer *file)
 	t_pchar		p;
 	t_pchar		tmp;
 	int			fd;
+	int			nbr;
 
-	if (file == NULL)
-		return (FALSE);
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (FALSE);
 	if ((p = ft_strdup("")) == NULL)
 		return (FALSE);
-	while (get_next_line(fd, &line) > 0)
+	if ((line = malloc(4096 + 1)) == NULL)
+		return (FALSE);
+	while ((nbr = read(fd, line, 4096)) > 0)
 	{
+		line[nbr] = '\0';
 		if ((tmp = ft_strjoin(p, line)) == NULL)
 			return (FALSE);
 		free(p);
 		p = tmp;
 	}
+	free(line);
 	close(fd);
 	(*file).bytes = p;
 	(*file).size = ft_strlen(p);
+//	ft_putstr(p);
 	return (TRUE);
 }
 
