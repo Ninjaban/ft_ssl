@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:51 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 12:14:15 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/15 12:08:29 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include "types.h"
 #include "error.h"
 #include "internal.h"
+
+static t_bool		ft_ssl_flags_usage(t_pchar s)
+{
+	ft_putstr_fd("ft_ssl: ", 2);
+	ft_putstr_fd(s, 2);
+	ft_putendl_fd(" is unknown", 2);
+	return (FALSE);
+}
 
 static t_bool		ft_ssl_flags_file(int ac, char **av, t_command *command)
 {
@@ -93,7 +101,7 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 				ft_strcmp(av[n], (*command)[i].name))
 			i = i + 1;
 		if ((*command)[i].name == NULL)
-			return (FALSE);
+			return (ft_ssl_flags_usage(av[n]));
 		(*command)[i].active = TRUE;
 		if ((*command)[i].param_offset)
 			(*command)[i].param = ft_strdup(av[n + (*command)[i].param_offset]);
