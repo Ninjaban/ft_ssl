@@ -29,7 +29,7 @@ extern t_bool	ft_sha256_padding(t_sha256_var *var, t_pchar string)
 
 	i = 0;
 	(*var).new_len = ft_strlen(string) * 8;
-	(*var).offset = 1 + (((*var).new_len) / 448);
+	(*var).offset = 1 + (((*var).new_len + 64) / 512);
 	if (!((*var).msg_32 = malloc(32 * (*var).offset * 2)))
 		return (-1);
 	ft_bzero((*var).msg_32, 32 * (*var).offset * 2);
