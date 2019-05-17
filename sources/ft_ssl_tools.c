@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:58 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/15 15:49:30 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:47:13 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,18 @@ extern t_bool		ft_ssl_tools_stdin(t_pvoid args)
 	}
 	free(line);
 	(*command).param = p;
+	return (TRUE);
+}
+
+extern t_bool		ft_ssl_tools_file(t_pvoid args)
+{
+	t_command	*command;
+	t_buffer	file;
+
+	command = args;
+	if (!ft_map_file(command->param, &file))
+		return (FALSE);
+	free(command->param);
+	command->param = file.bytes;
 	return (TRUE);
 }

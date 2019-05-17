@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:29:02 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/08 13:55:54 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/17 16:08:46 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ static t_bool		ft_ssl_launch_file(t_pchar *args, t_file *file,
 }
 
 static void			ft_ssl_launch_function_launch(t_command *command, t_uint n,
-		void (*print)(t_pchar, t_file, t_pchar, t_command *), t_pchar type)
+													t_pchar type)
 {
 	void			(*launch)(t_pchar *, t_pchar *);
+	void			(*print)(t_pchar, t_file, t_pchar, t_command *);
 	t_pchar			hash;
 	t_file			file;
 
 	launch = command[n].function;
+	print = ft_ssl_tools_get_cmd_function(command, "PRINT");
 	if (ft_strcmp(command[n - 1].name, "ARGS"))
 	{
 		launch(command[n - 1].param, &hash);
@@ -72,7 +74,7 @@ static void			ft_ssl_launch_function_launch(t_command *command, t_uint n,
 }
 
 static void			ft_ssl_launch_function(t_command *command, t_uint n,
-		void (*print)(t_pchar, t_file, t_pchar, t_command *), t_pchar type)
+											t_pchar type)
 {
 	void			(*function)(t_pvoid *);
 
@@ -84,17 +86,15 @@ static void			ft_ssl_launch_function(t_command *command, t_uint n,
 			function((t_pvoid)(&(command[n])));
 	}
 	else
-		ft_ssl_launch_function_launch(command, n, print, type);
+		ft_ssl_launch_function_launch(command, n, type);
 }
 
 extern t_bool		ft_ssl_launch(t_pchar type, t_command *command)
 {
-	void			(*print)(t_pchar, t_file, t_pchar, t_command *);
 	t_uint			n;
 
 	n = 0;
-	print = ft_ssl_tools_get_cmd_function(command, "PRINT");
 	while (command[n].name != NULL && ft_strcmp(command[n].name, "PRINT"))
-		ft_ssl_launch_function(command, n++, print, type);
+		ft_ssl_launch_function(command, n++, type);
 	return (TRUE);
 }
