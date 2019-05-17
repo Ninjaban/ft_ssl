@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:44 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 12:10:05 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/16 14:48:35 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ static t_bool		ft_ssl_init_hash(t_command **command, void (*function))
 	return (TRUE);
 }
 
+static t_bool		ft_ssl_init_base64(t_command **command, void (*function))
+{
+	int		n;
+
+	if ((*command = malloc(sizeof(t_command) * 10)) == NULL)
+		return (FALSE);
+	n = 0;
+	ft_ssl_init_add_cmd("-i", NULL, ninit(1, FALSE), &((*command)[n++]));
+	ft_ssl_init_add_launch(function, &((*command)[n++]));
+	ft_ssl_init_add_cmd("PRINT", &ft_ssl_print, ninit(0, FALSE),
+						&((*command)[n++]));
+	ft_ssl_init_add_cmd("-o", NULL, ninit(1, FALSE), &((*command)[n++]));
+	ft_ssl_init_add_cmd("-d", NULL, ninit(0, FALSE), &((*command)[n++]));
+	ft_ssl_init_add_cmd("-e", NULL, ninit(0, FALSE), &((*command)[n++]));
+	ft_ssl_init_add_default(ft_strsplit("-d", " "), &((*command)[n - 1]));
+	ft_ssl_init_add_cmd(NULL, NULL, ninit(0, FALSE), &((*command)[n]));
+	return (TRUE);
+}
+
 extern t_bool		ft_ssl_init(t_command **command, t_pchar type)
 {
 	if (!command)
@@ -50,6 +69,9 @@ extern t_bool		ft_ssl_init(t_command **command, t_pchar type)
 		return (TRUE);
 	if (!ft_strcmp(type, "whirlpool")
 			&& ft_ssl_init_hash(command, &ft_whirlpool_main))
+		return (TRUE);
+	if (!ft_strcmp(type, "base64")
+		&& ft_ssl_init_base64(command, &ft_base64_main))
 		return (TRUE);
 	return (FALSE);
 }
