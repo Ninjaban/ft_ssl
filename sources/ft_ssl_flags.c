@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:51 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/16 14:14:53 by nathan           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:16:26 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,17 @@
 
 static t_bool		ft_ssl_flags_usage(t_pchar s)
 {
-	ft_putstr_fd("ft_ssl: ", 2);
+	ft_putstr_fd("ft_ssl: '", 2);
 	ft_putstr_fd(s, 2);
-	ft_putendl_fd(" is unknown", 2);
+	ft_putendl_fd("' is unknown", 2);
+	return (FALSE);
+}
+
+static t_bool		ft_ssl_flags_usage_exclu(t_pchar s)
+{
+	ft_putstr_fd("ft_ssl: '", 2);
+	ft_putstr_fd(s, 2);
+	ft_putendl_fd("' cannot be associated with an another flag", 2);
 	return (FALSE);
 }
 
@@ -88,6 +96,28 @@ static void			ft_ssl_flags_default(t_command **command)
 	}
 }
 
+static t_bool		ft_ssl_flags_exclusif(t_command **command, t_pchar *exclusif)
+{
+	int		n;
+	int		i;
+
+	if (!exclusif)
+		return (TRUE);
+	i = 0;
+	while (exclusif[i])
+	{
+		n = 0;
+		while ((*command)[n].name != NULL)
+		{
+			if ((*command)[n].active && !ft_strcmp((*command)[n].name, exclusif[i]))
+				return (FALSE);
+			n = n + 1;
+		}
+		i = i + 1;
+	}
+	return (TRUE);
+}
+
 extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 {
 	int		n;
@@ -102,6 +132,8 @@ extern t_bool		ft_ssl_flags(int ac, char **av, t_command **command)
 			i = i + 1;
 		if ((*command)[i].name == NULL)
 			return (ft_ssl_flags_usage(av[n]));
+		if (!ft_ssl_flags_exclusif(command, (*command)[i].exclusif))
+			return (ft_ssl_flags_usage_exclu(av[n]));
 		(*command)[i].active = TRUE;
 		if ((*command)[i].param_offset)
 			(*command)[i].param = ft_strdup(av[n + (*command)[i].param_offset]);

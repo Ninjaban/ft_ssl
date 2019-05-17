@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   md5.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/08 13:38:38 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/17 09:04:10 by jcarra           ###   ########.fr       */
+/*   Created: 2019/05/08 13:40:31 by jcarra            #+#    #+#             */
+/*   Updated: 2019/05/17 14:47:05 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BASE64_H
+# define BASE64_H
 
-char		*ft_strnew(size_t size)
-{
-	char	*str;
-	size_t	n;
+extern t_bool		ft_ssl_base64_mode(t_pvoid args);
 
-	n = 0;
-	if (size == 0)
-		return (NULL);
-	if ((str = malloc(size + 1)) == NULL)
-		return (NULL);
-	while (n <= size)
-		str[n++] = '\0';
-	return (str);
-}
+extern t_bool		ft_base64_encode(t_pchar string, t_pchar *out);
+extern t_bool		ft_base64_decode(t_pchar string, t_pchar *out);
+
+#endif

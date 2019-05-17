@@ -18,6 +18,7 @@ SRC_BASE	=	main.c \
                 ft_ssl.c \
                 ft_ssl_usage.c \
 				ft_ssl_print.c \
+				ft_ssl_print_file.c \
 				ft_ssl_flags.c \
 				ft_ssl_launch.c \
 				ft_ssl_init.c \
@@ -36,7 +37,10 @@ SRC_BASE	=	main.c \
 				sha256/ft_sha256_main.c \
 				sha256/ft_sha256_init.c \
 				sha256/ft_sha256_padding.c \
-				sha256/ft_sha256_loop.c
+				sha256/ft_sha256_loop.c \
+				base64/ft_base64_decode.c \
+				base64/ft_base64_encode.c \
+				base64/ft_base64_tools.c
 				
 DIRSRC		=	sources/
 DIRINC		=	include/

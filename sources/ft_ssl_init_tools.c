@@ -6,10 +6,11 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:24:25 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/13 10:25:48 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/17 14:49:52 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "types.h"
 #include "error.h"
 #include "internal.h"
@@ -23,6 +24,7 @@ extern void			ft_ssl_init_add_cmd(t_pchar name, void (*function),
 	(*command).param = NULL;
 	(*command).param_offset = ninit.param_offset;
 	(*command).end_flags = ninit.end_flags;
+	(*command).exclusif = ninit.exclusif;
 	(*command).defaut.is_default = FALSE;
 	(*command).defaut.list = NULL;
 }
@@ -35,6 +37,9 @@ extern void			ft_ssl_init_add_launch(void (*function), t_command *command)
 	(*command).param = NULL;
 	(*command).param_offset = 0;
 	(*command).end_flags = FALSE;
+	(*command).exclusif = NULL;
+	(*command).defaut.is_default = FALSE;
+	(*command).defaut.list = NULL;
 }
 
 extern void			ft_ssl_init_add_default(t_pchar *list, t_command *command)
@@ -43,11 +48,12 @@ extern void			ft_ssl_init_add_default(t_pchar *list, t_command *command)
 	(*command).defaut.list = list;
 }
 
-extern t_ninit		ninit(t_uint param_offset, t_bool end_flags)
+extern t_ninit		ninit(t_uint param_offset, t_bool end_flags, t_pchar *exclusif)
 {
 	t_ninit		ninit;
 
 	ninit.param_offset = param_offset;
 	ninit.end_flags = end_flags;
+	ninit.exclusif = exclusif;
 	return (ninit);
 }

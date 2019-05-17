@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_base64_decode.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/08 13:38:38 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/17 09:04:10 by jcarra           ###   ########.fr       */
+/*   Created: 2019/05/17 14:46:43 by jcarra            #+#    #+#             */
+/*   Updated: 2019/05/17 15:19:18 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "types.h"
 
-char		*ft_strnew(size_t size)
+extern t_bool		ft_base64_decode(t_pchar string, t_pchar *out)
 {
-	char	*str;
-	size_t	n;
+	*out = ft_strdup("abcd");
 
-	n = 0;
-	if (size == 0)
-		return (NULL);
-	if ((str = malloc(size + 1)) == NULL)
-		return (NULL);
-	while (n <= size)
-		str[n++] = '\0';
-	return (str);
+	ft_putendl("decode...");
+	ft_putendl(string);
+	return (TRUE);
 }

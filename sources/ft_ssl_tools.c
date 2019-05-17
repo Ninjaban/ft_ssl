@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:58 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/16 14:52:49 by nathan           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:47:13 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,12 @@ extern t_bool		ft_ssl_tools_stdin(t_pvoid args)
 extern t_bool		ft_ssl_tools_file(t_pvoid args)
 {
 	t_command	*command;
-	t_file		file;
+	t_buffer	file;
 
 	command = args;
-	file.name = NULL;
-	if (!ft_map_file(args[n], &file.content))
-	{
-		ft_ssl_launch_file_error(args[n], type);
-		n = n + 1;
-		return (TRUE);
-	}
-	file.name = args[n];
-
+	if (!ft_map_file(command->param, &file))
+		return (FALSE);
+	free(command->param);
+	command->param = file.bytes;
+	return (TRUE);
 }
