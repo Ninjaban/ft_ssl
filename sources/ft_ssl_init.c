@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:44 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/17 15:17:20 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/18 11:52:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_bool		ft_ssl_init_base64(t_command **command, void (*function))
 {
 	int		n;
 
-	if ((*command = malloc(sizeof(t_command) * 10)) == NULL)
+	if ((*command = malloc(sizeof(t_command) * 11)) == NULL)
 		return (FALSE);
 	n = 0;
 	ft_ssl_init_add_cmd("MODE", &ft_ssl_base64_mode, ninit(0, FALSE, NULL), &((*command)[n++]));
@@ -58,6 +58,8 @@ static t_bool		ft_ssl_init_base64(t_command **command, void (*function))
 	ft_ssl_init_add_cmd("-d", &ft_base64_decode, ninit(0, FALSE, ft_strsplit("-e", " ")), &((*command)[n++]));
 	ft_ssl_init_add_cmd("-e", &ft_base64_encode, ninit(0, FALSE, ft_strsplit("-d", " ")), &((*command)[n++]));
 	ft_ssl_init_add_default(ft_strsplit("-d", " "), &((*command)[n - 1]));
+	ft_ssl_init_add_cmd("-q", NULL, ninit(0, FALSE, NULL), &((*command)[n++]));
+	ft_ssl_init_add_default(NULL, &((*command)[n - 1]));
 	ft_ssl_init_add_cmd(NULL, NULL, ninit(0, FALSE, NULL), &((*command)[n]));
 	return (TRUE);
 }

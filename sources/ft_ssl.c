@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:29:04 by jcarra            #+#    #+#             */
-/*   Updated: 2019/05/17 09:04:10 by jcarra           ###   ########.fr       */
+/*   Updated: 2019/05/18 11:39:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,28 @@
 #include "error.h"
 #include "internal.h"
 
+static void			ft_ssl_free_tab(t_pchar *tab)
+{
+	int		n;
+
+	n = 0;
+	while (tab[n])
+		free(tab[n++]);
+	free(tab);
+
+}
+
 static void			ft_ssl_free(t_command *command)
 {
 	int		n;
-	int		i;
 
 	n = 0;
 	while (command[n].name != NULL)
 	{
 		if (command[n].defaut.list)
-		{
-			i = 0;
-			while (command[n].defaut.list[i])
-				free(command[n].defaut.list[i++]);
-			free(command[n].defaut.list);
-		}
+			ft_ssl_free_tab(command[n].defaut.list);
+		if (command[n].exclusif)
+			ft_ssl_free_tab(command[n].exclusif);
 		if (command[n].param)
 			free(command[n].param);
 		n = n + 1;

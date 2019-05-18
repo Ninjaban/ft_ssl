@@ -29,5 +29,6 @@ extern t_bool		ft_ssl_print_file(t_pchar hash, t_file file, t_pchar type,
 		return (FALSE);
 	ft_putstr_fd(hash, fd);
 	close(fd);
+	free(hash);
 	return (TRUE);
 }

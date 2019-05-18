@@ -38,7 +38,7 @@ extern t_bool		ft_ssl_base64_mode(t_pvoid args)
 	if (ft_ssl_tools_get_cmd_active(command, "-o"))
 	{
 		command[n].function = ft_ssl_tools_get_cmd_function(command, "-o");
-		command[n].param = ft_ssl_tools_get_cmd_param(command, "-o");
+		command[n].param = ft_strdup(ft_ssl_tools_get_cmd_param(command, "-o"));
 	}
 	return (TRUE);
 }
