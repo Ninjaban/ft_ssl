@@ -6,7 +6,7 @@ JC_NAME="jcarra "
 JC_NAM2="nathan "
 NS_NAME="nsikora"
 
-n=0
+n=1
 if [ $n -eq 0 ]
 then
     sed -i '' -E "s/$JC_MAIL/$NS_MAIL/g" $(find . -name "*.[ch]")
@@ -27,5 +27,5 @@ else
     sed -i '' -E 's/(n=)1/\10/' $0
 	echo "$NS_NAME -> $JC_NAME"
 fi
-rm -f $(find . -name "*.[ch]r*")
-rm -f $(find . -name "Makefiler*")
+rm -f $(find . -name "*.[ch]E*")
+rm -f $(find . -name "MakefileE*")
