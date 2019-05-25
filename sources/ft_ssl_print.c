@@ -6,7 +6,7 @@
 /*   By: nsikora <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:35 by nsikora           #+#    #+#             */
-/*   Updated: 2019/05/18 13:15:53 by nsikora          ###   ########.fr       */
+/*   Updated: 2019/05/25 12:15:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_file file,
 										t_pchar type, t_command *command)
 {
 	ft_putstr(hash);
-	ft_putstr("  ");
 	if (!ft_ssl_tools_get_cmd_active(command, "-q"))
 	{
+		ft_putstr("  ");
 		if (file.name)
 		{
 			ft_putstr(type);
 			ft_putstr(" (");
 			ft_putstr(file.name);
-			ft_putstr(")\n");
+			ft_putchar(')');
 		}
 		else if (ft_ssl_tools_get_cmd_active(command, "-p") &&
 	!ft_strcmp(file.content.bytes, ft_ssl_tools_get_cmd_param(command, "-p")))
 		{
-			ft_putendl(file.content.bytes);
+			ft_putstr(file.content.bytes);
 		}
 		else if (!ft_strcmp(file.content.bytes,
 				ft_ssl_tools_get_cmd_param(command, "-s")))
@@ -40,9 +40,10 @@ static void			ft_ssl_print_reverse(t_pchar hash, t_file file,
 			ft_putstr(type);
 			ft_putstr(" ('");
 			ft_putstr(file.content.bytes);
-			ft_putstr("')\n");
+			ft_putstr("')");
 		}
 	}
+	ft_putchar('\n');
 }
 
 static void			ft_ssl_print_normal(t_pchar hash, t_file file, t_pchar type,
