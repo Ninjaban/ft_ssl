@@ -49,9 +49,9 @@ extern t_bool	ft_base64_encode(t_pchar string, t_pchar *out)
 
     	/* this 24-bit number gets separated into four 6-bit numbers */
     	n0 = (uint8_t)(n >> 18) & 63;
-      	n1 = (uint8_t)(n >> 12) & 63;
-      	n2 = (uint8_t)(n >> 6) & 63;
-      	n3 = (uint8_t)n & 63;
+      n1 = (uint8_t)(n >> 12) & 63;
+      n2 = (uint8_t)(n >> 6) & 63;
+      n3 = (uint8_t)n & 63;
             
     	/*
     	* if we have one byte available, then its encoding is spread
