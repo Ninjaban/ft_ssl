@@ -3,9 +3,9 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsikora <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/05/15 12:29:24 by nsikora           #+#    #+#              #
+#    Created: 2019/05/15 12:29:24 by jcarra            #+#    #+#              #
 #    Updated: 2019/05/25 12:24:29 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -29,19 +29,11 @@ SRC_BASE	=	main.c \
                 md5/ft_md5_init.c \
                 md5/ft_md5_padding.c \
                 md5/ft_md5_loop.c \
-                whirlpool/ft_whirlpool_main.c \
-                whirlpool/ft_whirlpool_init.c \
-                whirlpool/ft_whirlpool_add.c \
-                whirlpool/ft_whirlpool_process.c \
-                whirlpool/ft_whirlpool_finalize.c \
 				sha256/ft_sha256_main.c \
 				sha256/ft_sha256_init.c \
 				sha256/ft_sha256_padding.c \
-				sha256/ft_sha256_loop.c \
-				base64/ft_base64_decode.c \
-				base64/ft_base64_encode.c \
-				base64/ft_base64_tools.c
-				
+				sha256/ft_sha256_loop.c
+
 DIRSRC		=	sources/
 DIRINC		=	include/
 DIRLIB		=	library/
