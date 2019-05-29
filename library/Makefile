@@ -6,7 +6,7 @@
 #    By: nsikora <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 12:29:34 by nsikora           #+#    #+#              #
-#    Updated: 2019/05/25 12:15:48 by nathan           ###   ########.fr        #
+#    Updated: 2019/05/29 13:00:59 by jcarra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,7 +119,7 @@ $(OBJ_DIR)%.o :		$(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(eval TO_DO=$(shell echo $$((20-$(INDEX)*20/$(NB) - 1))))
 	@$(eval COLOR=$(shell list=(160 196 202 208 215 221 226 227 190 154 118 82 46); index=$$(($(PERCENT) * $${#list[@]} / 100)); echo "$${list[$$index]}"))
 	@printf "\r\033[38;5;%dm⌛ [%s]: %2d%% `printf '█%.0s' {0..$(DONE)}`%*s❙%*.*s\033[0m\033[0m" $(COLOR) $(NAME) $(PERCENT) $(TO_DO) "" $(DELTA) $(DELTA) "$(shell echo "$@" | sed 's/^.*\///')"
-	@$(CC) $(FLAGS) -MMD -c $< -o $@ -I $(INC_DIR)
+	@$(CC) $(FLAGS) -c $< -o $@ -I $(INC_DIR)
 	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
 clean :
