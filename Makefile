@@ -6,7 +6,7 @@
 #    By: nsikora <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 12:29:24 by nsikora           #+#    #+#              #
-#    Updated: 2019/05/29 13:01:00 by jcarra           ###   ########.fr        #
+#    Updated: 2019/06/04 09:55:59 by nsikora          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,6 @@ SRC_BASE	=	main.c \
                 md5/ft_md5_init.c \
                 md5/ft_md5_padding.c \
                 md5/ft_md5_loop.c \
-                whirlpool/ft_whirlpool_main.c \
-                whirlpool/ft_whirlpool_init.c \
-                whirlpool/ft_whirlpool_add.c \
-                whirlpool/ft_whirlpool_process.c \
-                whirlpool/ft_whirlpool_finalize.c \
 				sha256/ft_sha256_main.c \
 				sha256/ft_sha256_init.c \
 				sha256/ft_sha256_padding.c \

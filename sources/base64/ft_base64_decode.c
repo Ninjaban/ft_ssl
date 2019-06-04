@@ -15,7 +15,7 @@
 
 extern t_bool		ft_base64_decode(t_pchar string, t_pchar *out)
 {
-	*out = ft_strdup("abcd");
+	*out = ft_strdup("abcde");
 
 	ft_putendl("decode...");
 	ft_putendl(string);

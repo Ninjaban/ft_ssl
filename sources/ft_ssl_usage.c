@@ -6,7 +6,7 @@
 /*   By: nsikora <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:29:10 by nsikora           #+#    #+#             */
-/*   Updated: 2019/05/25 12:15:48 by nathan           ###   ########.fr       */
+/*   Updated: 2019/06/04 09:57:44 by nsikora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ extern void			ft_ssl_usage_command(void)
 	ft_putendl_fd("Message Digest commands:", 2);
 	ft_putendl_fd("md5", 2);
 	ft_putendl_fd("sha256", 2);
-	ft_putendl_fd("whirlpool", 2);
 	ft_putendl_fd("", 2);
 	ft_putendl_fd("Cipher commands:", 2);
 }

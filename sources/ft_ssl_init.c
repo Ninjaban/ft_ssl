@@ -6,7 +6,7 @@
 /*   By: nsikora <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 13:28:44 by nsikora           #+#    #+#             */
-/*   Updated: 2019/05/25 12:15:48 by nathan           ###   ########.fr       */
+/*   Updated: 2019/06/04 09:56:51 by nsikora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ extern t_bool		ft_ssl_init(t_command **command, t_pchar type)
 		return (TRUE);
 	if (!ft_strcmp(type, "sha256")
 			&& ft_ssl_init_hash(command, &ft_sha256_main))
-		return (TRUE);
-	if (!ft_strcmp(type, "whirlpool")
-			&& ft_ssl_init_hash(command, &ft_whirlpool_main))
 		return (TRUE);
 	if (!ft_strcmp(type, "base64")
 			&& ft_ssl_init_base64(command, NULL))
