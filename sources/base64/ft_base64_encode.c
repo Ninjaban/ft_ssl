@@ -60,13 +60,17 @@ static				t_bool	ft_base64_algo(t_pchar string, t_base64 *base64, t_base64_var *
 		}
 		if ((x+2) < (*base64_var).len)
 		{
-			if((*base64_var).resultIndex >= (*base64).resultLen)
+			if ((*base64_var).resultIndex >= (*base64).resultLen)
 				return (FALSE);
 			(*base64).result[(*base64_var).resultIndex++] = base64chars[(*base64).n3];
 		}
 		x = x + 3;
 	}
-	ft_putendl((*base64).result);
+	while ((*base64_var).padCount < 3)
+	{
+		(*base64).result[(*base64_var).resultIndex++] = '=';
+		(*base64_var).padCount++;
+	}
 	return (TRUE);
 }
 
@@ -80,6 +84,7 @@ extern 				t_bool	ft_base64_encode(t_pchar string, t_pchar *out)
 	if (!ft_base64_algo(string, &base64, &base64_var))
 		return (FALSE);
 
+	ft_putendl((base64).result);
 	*out = ft_strdup("abcd");
 
 	ft_putendl("encode...");
