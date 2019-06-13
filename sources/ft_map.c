@@ -44,7 +44,6 @@ extern t_bool		ft_map_file(const char *path, t_buffer *file)
 	close(fd);
 	(*file).bytes = p;
 	(*file).size = ft_strlen(p);
-//	ft_putstr(p);
 	return (TRUE);
 }
 

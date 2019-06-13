@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "types.h"
 
-extern t_bool		ft_base64_decode(t_pchar string, t_pchar *out)
+extern t_bool		ft_b64_decode(t_pchar string, t_pchar *out)
 {
 	*out = ft_strdup("abcde");
 

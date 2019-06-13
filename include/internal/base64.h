@@ -13,14 +13,17 @@
 #ifndef BASE64_H
 # define BASE64_H
 
-typedef struct		s_base64_var
+typedef struct		s_b64_var
 {
+    uint32_t		x;
+	uint32_t		n;
     uint32_t		len;
     uint32_t        padCount;
-    size_t          resultIndex;
-}					t_base64_var;
+    size_t          resultInd;
+    char		    b64chars[64];
+}					t_b64_var;
 
-typedef struct		s_base64
+typedef struct		s_b64
 {
     uint8_t         n0;
     uint8_t         n1;
@@ -28,10 +31,10 @@ typedef struct		s_base64
     uint8_t         n3;
     size_t          resultLen;
     t_pchar         result;
-}					t_base64;
+}					t_b64;
 
-extern t_bool		ft_ssl_base64_mode(t_pvoid args);
-extern t_bool		ft_base64_encode(t_pchar string, t_pchar *out);
-extern t_bool		ft_base64_decode(t_pchar string, t_pchar *out);
+extern t_bool		ft_ssl_b64_mode(t_pvoid args);
+extern t_bool		ft_b64_encode(t_pchar string, t_pchar *out);
+extern t_bool		ft_b64_decode(t_pchar string, t_pchar *out);
 
 #endif

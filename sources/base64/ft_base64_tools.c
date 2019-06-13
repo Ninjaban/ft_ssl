@@ -14,7 +14,7 @@
 #include "types.h"
 #include "internal.h"
 
-extern t_bool		ft_ssl_base64_mode(t_pvoid args)
+extern t_bool		ft_ssl_b64_mode(t_pvoid args)
 {
 	t_command	*command;
 	void		(*function);
